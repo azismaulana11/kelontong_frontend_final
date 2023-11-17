@@ -46,6 +46,7 @@ function Register() {
       showConfirmButton: false,
       timer: 1500,
     });
+    return; // Hentikan eksekusi jika password tidak cocok
   }
 
   try {
@@ -78,6 +79,7 @@ function Register() {
     });
   }
 };
+
 
   return (
     <div className="container vh-100">
