@@ -7,40 +7,84 @@ import Swal from 'sweetalert2';
 import NavbarLogin from '../components/NavbarLogin';
 
 function LoginOwner() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await login(username, password);
+  try {
+    const response = await login(email, password);
 
-      if (response.statusCode === 200) {
-        // Jika login berhasil, munculkan alert
-        Swal.fire({
-          title: 'Login berhasil!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        }).then(() => {
-          console.log(response.data);
-          navigate('/');
-          localStorage.setItem('access_token', response.data.access_token);
-          Cookies.set('access_token', response.data.access_token, { expires: 7 });
-          Cookies.set('username', response.data.user, { expires: 7 });
-        });
+    if (response.statusCode === 200) {
+      // Memeriksa apakah peran adalah 'owner'
+      if (response.data.role === 'owner') {
+        // Memeriksa apakah pengguna sudah diverifikasi
+        if (response.data.isVerified) {
+          // Jika login berhasil, peran adalah 'owner', dan pengguna sudah diverifikasi
+          Swal.fire({
+            title: 'Login berhasil!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+          }).then(() => {
+            console.log(response.data);
+
+            // Set role ke dalam cookies atau localStorage
+            Cookies.set('role', response.data.role, { expires: 7 });
+            localStorage.setItem('access_token', response.data.access_token);
+            Cookies.set('access_token', response.data.access_token, { expires: 7 });
+            Cookies.set('email', response.data.user, { expires: 7 });
+
+            // Redirect ke /dashboard
+            navigate('/dashboard');
+          });
+        } else {
+          // Jika pengguna belum diverifikasi, munculkan pesan
+          Swal.fire({
+            title: 'Login ditolak',
+            text: 'Anda belum diverifikasi. Silakan verifikasi akun Anda.',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          });
+        }
       } else {
+        // Jika peran bukan 'owner', munculkan pesan atau lakukan tindakan lain
         Swal.fire({
-          title : 'Login gagal',
+          title: 'Login ditolak',
+          text: 'Anda tidak memiliki izin untuk mengakses halaman ini.',
           icon: 'error',
           confirmButtonText: 'Ok'
-        })
+        });
       }
-    } catch (error) {
-      console.error('Error during login:', error);
+    } else if (response.statusCode === 401 && !response.data.isVerified) {
+      // Jika respons adalah 401 dan pengguna belum diverifikasi
+      Swal.fire({
+        title: 'Login ditolak',
+        text: 'Email Anda belum diverifikasi. Silakan verifikasi akun Anda.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
+    } else {
+      // Menangani respons selain 200 dan 401
+      Swal.fire({
+        title: 'Login gagal',
+        text: response.data.message || 'Terjadi kesalahan saat login.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
     }
-  };
+  } catch (error) {
+    console.error('Error during login:', error);
+    // Menangani kesalahan selama proses login
+    Swal.fire({
+      title: 'Login gagal',
+      text: 'Terjadi kesalahan saat login.',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  }
+};
 
   return (
     <>
@@ -70,13 +114,13 @@ function LoginOwner() {
                     <div className="col-lg-12 col-md-12 col-sm-12">
                       <div className="mb-3">
                         <input
-                          type="username"
+                          type="email"
                           className="form-control"
-                          id="username"
-                          placeholder="Username Owner"
+                          id="email"
+                          placeholder="Email Owner"
                           required={true}
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                       <div className="mb-3">
@@ -104,7 +148,9 @@ function LoginOwner() {
                               <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Remember Me
                               </label>
-                              <a className="float-end" href="forgot-password.html">Lupa Password?</a>
+                              <Link to="/forgot-password">
+                              <a className="float-end">Lupa Password?</a>
+                              </Link>
                             </div>
                           </div>
                         </div>
