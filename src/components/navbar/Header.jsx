@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 
-export default function Header() {
+
+export default function Header({ setResults }) {
   const [input, setInput] = useState("");
 
   const fetchData = (value) => {
     fetch('https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product')
       .then((response) => response.json())
       .then ((json) => {
-        console.log(json)
+        const results = json.filter((product) => {
+          return value && product && product.name && product.name.toLowerCase().includes(value)
+        })
+        setResults(results)
       })
   }
 
