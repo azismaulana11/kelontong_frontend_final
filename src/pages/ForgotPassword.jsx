@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { forgotPassword } from '../services';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import imgLogo from '../assets/img/logo.jpeg';
 import imgSearch from '../assets/img/search_email.png';
 import Swal from 'sweetalert2';
 
 function ForgotPassword() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
 
     const handleForgotPassword = async (e) => {
@@ -28,7 +29,9 @@ function ForgotPassword() {
                     title: 'Reset Password',
                     text: 'Link reset password telah dikirimkan! Silakan cek email Anda.',
                     icon: 'success',
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Ok',
+                }).then(() => {
+                    navigate('/login');
                 });
             }
         } catch (error) {
