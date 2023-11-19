@@ -1,5 +1,7 @@
 import { useState,useEffect } from 'react';
 import { Link,useNavigate  } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLoginData } from '../redux/User/LoginSlicer';
 import imgLogo from '../assets/img/logo.jpeg';
 import { login } from '../services/index';
 import Cookies from 'js-cookie';
@@ -10,6 +12,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
 useEffect(() => {
@@ -23,24 +26,27 @@ document.title = 'Login Member';
     const response = await login(email, password);
 
     if (response.statusCode === 200) {
-      // Memeriksa apakah peran adalah 'customer'
       if (response.data.role === 'customer') {
-        // Memeriksa apakah pengguna sudah diverifikasi
         if (response.data.isVerified) {
-          // Jika login berhasil, peran adalah 'customer', dan pengguna sudah diverifikasi
           Swal.fire({
             title: 'Login berhasil!',
             icon: 'success',
             confirmButtonText: 'OK',
           }).then(() => {
-            console.log(response.data);
-
-            // Set role ke dalam cookies atau localStorage
+            dispatch(
+                setLoginData({
+                  isLoggedIn: true,
+                  name: response.data.name,
+                  user: response.data.user,
+                  role: response.data.role,
+                  alamat: response.data.alamat,
+                  access_token: response.data.access_token,
+                  email: response.data.user,
+                })
+              );
+            console.log(response.data);   
             Cookies.set('role', response.data.role, { expires: 7 });
-            Cookies.set('alamat', response.data.alamat, { expires: 7 });
-            localStorage.setItem('access_token', response.data.access_token);
             Cookies.set('access_token', response.data.access_token, { expires: 7 });
-            Cookies.set('email', response.data.user, { expires: 7 });
 
             // Redirect ke /homepage
             navigate('/homepage');
