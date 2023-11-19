@@ -32,6 +32,7 @@ function LoginOwner() {
 
             // Set role ke dalam cookies atau localStorage
             Cookies.set('role', response.data.role, { expires: 7 });
+            Cookies.set('alamat', response.data.alamat, { expires: 7 });
             localStorage.setItem('access_token', response.data.access_token);
             Cookies.set('access_token', response.data.access_token, { expires: 7 });
             Cookies.set('email', response.data.user, { expires: 7 });
@@ -128,6 +129,8 @@ function LoginOwner() {
                           type="password"
                           className="form-control"
                           id="password"
+                          minLength="8"
+                          maxLength="12"
                           placeholder="Your Password"
                           required={true}
                           value={password}

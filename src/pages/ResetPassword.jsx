@@ -22,7 +22,7 @@ function ResetPassword() {
 
         if (!regex.test(inputPassword)) {
             setPasswordError(
-                'Password must be 8-12 characters long, contain at least 1 uppercase letter, and 1 symbol (!@#$%^&*)'
+                'Password harus memiliki panjang 8-12 karakter, mengandung setidaknya 1 huruf besar, dan 1 simbol (!@#$%^&*)'
             );
         } else {
             setPasswordError('');
