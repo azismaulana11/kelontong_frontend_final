@@ -16,70 +16,99 @@ function Register() {
     role: 'customer',
   });
 
-  const handleInputChange = (e) => {
-  if (e.target.id === 'role') {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value || 'customer',
-    });
-  } else if (e.target.id === 'phone_number') {
-    const numericValue = e.target.value.replace(/\D/g, '');
-    setFormData({
-      ...formData,
-      [e.target.id]: numericValue,
-    });
-  } else {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  }
-};
+  const [passwordError, setPasswordError] = useState('');
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
+  const validatePassword = (inputPassword) => {
+    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,12})$/;
 
-  if (formData.password !== formData.password_2) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Password does not match. Please check again.',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    return; // Hentikan eksekusi jika password tidak cocok
-  }
-
-  try {
-    const response = await register(formData);
-
-    if (response.success) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration successful!',
-        showConfirmButton: false,
-        timer: 1500,
-      }).then(() => {
-        navigate('/login');
-      });
+    if (!regex.test(inputPassword)) {
+      setPasswordError(
+        'password harus memiliki panjang 8-12 karakter, mengandung 1 huruf besar, dan 1 simbol (!@#$%^&*)'
+      );
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Registration failed',
-        text: response.message,
-        showConfirmButton: true,
+      setPasswordError('');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    if (e.target.id === 'role') {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value || 'customer',
+      });
+    } else if (e.target.id === 'phone_number') {
+      const numericValue = e.target.value.replace(/\D/g, '');
+      setFormData({
+        ...formData,
+        [e.target.id]: numericValue,
+      });
+    } else if (e.target.id === 'password') {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+      validatePassword(e.target.value);
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
       });
     }
-  } catch (error) {
-    console.error('Error during registration:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Registration failed. Please try again.',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  }
-};
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.password_2) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Password tidak sama silahkan check kembali.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
+    if (passwordError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Password salah',
+        text: passwordError,
+        showConfirmButton: true,
+      });
+      return;
+    }
+
+    try {
+      const response = await register(formData);
+
+      if (response.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrasi Berhasil',
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          navigate('/login');
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Registrasi gagal',
+          text: response.message,
+          showConfirmButton: true,
+        });
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Registrasi gagal silahkan coba lagi nanti.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
 
   return (
     <div className="container vh-100">
@@ -174,10 +203,11 @@ function Register() {
                                 placeholder="Your Password"
                                 required
                                 minLength="8"
-                                maxLength="8"
+                                maxLength="12"
                                 value={formData.password}
                                 onChange={handleInputChange}
                               />
+                              {passwordError && <p className="text-danger">{passwordError}</p>}
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-12">
@@ -189,7 +219,7 @@ function Register() {
                                 placeholder="Confirm Password"
                                 required
                                 minLength="8"
-                                maxLength="8"
+                                maxLength="12"
                                 value={formData.password_2}
                                 onChange={handleInputChange}
                               />
