@@ -1,7 +1,7 @@
 import imgLogo from '../assets/img/logo.jpeg';
 import imgLock from '../assets/img/lock.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { resetPassword } from '../services/index';
 import Swal from 'sweetalert2';
 
@@ -11,6 +11,10 @@ function ResetPassword() {
     const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+    document.title = 'Reset Password';
+    }, []);
 
     // Mendapatkan email dan token dari parameter URL
     const searchParams = new URLSearchParams(location.search);

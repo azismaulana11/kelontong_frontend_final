@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { forgotPassword } from '../services';
 import { Link,useNavigate } from 'react-router-dom';
 import imgLogo from '../assets/img/logo.jpeg';
@@ -8,6 +8,10 @@ import Swal from 'sweetalert2';
 function ForgotPassword() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
+
+useEffect(() => {
+document.title = 'Forgot Password';
+}, []);
 
     const handleForgotPassword = async (e) => {
         e.preventDefault();

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Link,useNavigate  } from 'react-router-dom';
 import imgLogo from '../assets/img/logo.jpeg';
 import { login } from '../services/index';
@@ -10,6 +10,11 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+
+useEffect(() => {
+document.title = 'Login Member';
+}, []);
 
  const handleLogin = async (e) => {
   e.preventDefault();
