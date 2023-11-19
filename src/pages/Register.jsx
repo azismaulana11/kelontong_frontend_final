@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import imgLogo from '../assets/img/logo.jpeg';
 import { register } from '../services/index';
@@ -109,6 +109,10 @@ function Register() {
       });
     }
   };
+
+  useEffect(() => {
+  document.title = 'Register Page';
+  }, []);
 
   return (
     <div className="container vh-100">
