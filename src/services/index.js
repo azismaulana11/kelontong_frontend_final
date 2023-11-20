@@ -1,6 +1,9 @@
 import axios from 'axios'
 const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
+const BASE_URL_API_LOGIN = "https://pear-successful-mackerel.cyclic.app/api/v1/auth/login";
+const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
+
 console.log(BASE_URL_API)
 
 const getProductList = async () => {
@@ -13,6 +16,10 @@ const getProductList = async () => {
     }
 }
 
+const login = async (username, password) => {
+    try {
+        const url_login = `${BASE_URL_API_LOGIN}`;
+        const response = await axios.post(url_login, { username, password });
 const register = async (userData) => {
   try {
     const response = await axios.post(`${BASE_URL_API_LOGIN_REGISTER}/register`, userData);
@@ -37,7 +44,6 @@ const login = async (email, password) => {
             // Tangkap pesan error jika ada
             const errorMessage = error.response.data.message;
             console.log(`Error message: ${errorMessage}`);
-
             // Periksa apakah properti isVerified tersedia dalam respons error
             const errorVerified = error.response.data.isVerified;
             if (errorVerified !== undefined) {
@@ -52,7 +58,10 @@ const login = async (email, password) => {
         throw error;
     }
 };
-
+      
+export {
+getProductList,
+login
 const forgotPassword = async (email) => {
     try {
         const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;

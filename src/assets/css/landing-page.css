@@ -1,0 +1,33 @@
+.card {
+  width: 300px; /* Lebar kartu tetap */
+}
+
+.card-body {
+  padding: 10px; /* Padding untuk isi kartu */
+}
+
+.card-img-top {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0; /* Menghilangkan margin bawaan */
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 10px; /* Margin bawah untuk konten teks */
+}
+
+.card-price {
+  font-size: 1rem;
+  color: #007bff;
+  margin: 0; /* Menghilangkan margin bawaan */
+}
+
+a{
+    text-decoration: none;
+}
