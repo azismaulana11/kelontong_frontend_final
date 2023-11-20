@@ -141,12 +141,12 @@ function Register() {
                     <div className="container-fluid">
                       <div className="row">
                         <div className="col-12">
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <p>Register</p>
                             </div>
                           </div>
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <input
                                 type="text"
@@ -159,7 +159,7 @@ function Register() {
                               />
                             </div>
                           </div>
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <input
                                 type="email"
@@ -172,7 +172,7 @@ function Register() {
                               />
                             </div>
                           </div>
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <input
                                 type="text"
@@ -185,7 +185,7 @@ function Register() {
                               />
                             </div>
                           </div>
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <input
                                 type="alamat"
@@ -198,7 +198,7 @@ function Register() {
                               />
                             </div>
                           </div>
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <input
                                 type="password"
@@ -214,7 +214,7 @@ function Register() {
                               {passwordError && <p className="text-danger">{passwordError}</p>}
                             </div>
                           </div>
-                          <div className="col-lg-6 col-md-6 col-sm-12">
+                          <div className="col-lg-12 col-md-6 col-sm-12">
                             <div className="mb-3">
                               <input
                                 type="password"
