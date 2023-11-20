@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import AppRoutes from './routes/Routes'
-
 function App() {
   return (
     <AppRoutes/>
@@ -8,3 +7,13 @@ function App() {
 }
 
 export default App
+
+  import AppRoutes from './routes/Routes'
+  function App() {
+    return (
+      <AppRoutes/>
+    )
+  }
+
+  export default App
+

@@ -1,8 +1,8 @@
 import axios from 'axios'
-
 const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
-
 const BASE_URL_API_LOGIN = "https://pear-successful-mackerel.cyclic.app/api/v1/auth/login";
+const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
+const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
 
 console.log(BASE_URL_API)
 
@@ -20,6 +20,20 @@ const login = async (username, password) => {
     try {
         const url_login = `${BASE_URL_API_LOGIN}`;
         const response = await axios.post(url_login, { username, password });
+const register = async (userData) => {
+  try {
+    const response = await axios.post(`${BASE_URL_API_LOGIN_REGISTER}/register`, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error during registration:', error);
+    throw error;
+  }
+};
+
+const login = async (email, password) => {
+    try {
+        const url_login = `${BASE_URL_API_LOGIN_REGISTER}/login`;
+        const response = await axios.post(url_login, { email, password });
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -30,6 +44,12 @@ const login = async (username, password) => {
             // Tangkap pesan error jika ada
             const errorMessage = error.response.data.message;
             console.log(`Error message: ${errorMessage}`);
+            // Periksa apakah properti isVerified tersedia dalam respons error
+            const errorVerified = error.response.data.isVerified;
+            if (errorVerified !== undefined) {
+                console.log(`Is Verified: ${errorVerified}`);
+            }
+
         } else {
             console.log('Error:', error.message);
         }
@@ -38,8 +58,52 @@ const login = async (username, password) => {
         throw error;
     }
 };
-
+      
 export {
 getProductList,
 login
+const forgotPassword = async (email) => {
+    try {
+        const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;
+        const response = await axios.post(url_forgot, { email });
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            const statusCode = error.response.status;
+            console.log(`HTTP status code: ${statusCode}`);
+
+            if (statusCode === 404) {
+                // Email tidak terdaftar
+                return { error: 'Email not found' };
+            }
+
+            // Tangkap pesan error jika ada
+            const errorMessage = error.response.data.message;
+            console.log(`Error message: ${errorMessage}`);
+        } else {
+            console.log('Error:', error.message);
+        }
+
+        throw error;
+    }
+}
+
+const resetPassword = async (email, token, newPassword) => {
+    try {
+        const url_reset = `${BASE_URL_API_LOGIN_REGISTER}/reset-password`;
+        const response = await axios.post(url_reset, { email, token, newPassword });
+        return response.data;
+    } catch (error) {
+        console.error('Error during password reset:', error);
+        throw error;
+    }
+};
+
+
+export {
+getProductList,
+register,
+login,
+forgotPassword,
+resetPassword
 }
