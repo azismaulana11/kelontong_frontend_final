@@ -56,6 +56,45 @@ export default function EditProduct() {
         fetchProductData();
     }, []);
 
+    const handleChange = (e) => {
+        if (e.target.id === "image") {
+            setFormData({ ...formData, [e.target.id]: e.target.files[0] });
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            if (e.target.files[0]) {
+                reader.readAsDataURL(e.target.files[0]);
+            } else {
+                setImagePreview("");
+            }
+        } else {
+            setFormData({ ...formData, [e.target.id]: e.target.value });
+        }
+        switch (e.target.id) {
+            case "name":
+                setIsEmpty({ ...isEmpty, name: false });
+                break;
+            case "image":
+                setIsEmpty({ ...isEmpty, image: false });
+                break;
+            case "category":
+                setIsEmpty({ ...isEmpty, category: false });
+                break;
+            case "price":
+                setIsEmpty({ ...isEmpty, price: false });
+                break;
+            case "stock":
+                setIsEmpty({ ...isEmpty, stock: false });
+                break;
+            case "description":
+                setIsEmpty({ ...isEmpty, description: false });
+                break;
+            default:
+                break;
+        }
+    };
+
     return (
         <DashboardLayout>
             <SweetAlert2 {...swalProps} />
