@@ -2,6 +2,10 @@ import HeadingTitle from "../../../components/dashboard/HeadingTitle";
 import DashboardLayout from "../../../layout/DashboardLayout";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import deleteIcon from "../../../assets/img/dashboard/delete.svg";
+import editIcon from "../../../assets/img/dashboard/edit.svg";
+import { Link } from "react-router-dom";
+
 
 export default function Product() {
     const BASE_SERVER = "http://localhost:5500";
@@ -96,6 +100,12 @@ export default function Product() {
                                                                                     <td>{product.stock}</td>
                                                                                     <td>{product.description}</td>
                                                                                     <td className="d-flex column-gap-2">
+                                                                                        <Link to={`/dashboard/products/edit/${product._id}`}><img src={editIcon} alt="" /></Link>
+                                                                                        <form onSubmit={handleDelete(product._id)}>
+                                                                                            <button type="submit" className="border-0 bg-transparent">
+                                                                                                <img src={deleteIcon} alt="" />
+                                                                                            </button>
+                                                                                        </form>
                                                                                     </td>
                                                                                 </tr>
                                                                             ))}
