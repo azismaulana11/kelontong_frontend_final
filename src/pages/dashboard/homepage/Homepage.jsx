@@ -90,6 +90,38 @@ export default function Homepage() {
                     </div>
                 </div>
             </div>
+            <div className="mt-5">
+                <div className="container">
+                    <div className="row mb-3">
+                        {/* total pendapatan */}
+                        <div className="col-lg-7 mb-4">
+                            <div className="card border-0 shadow-sm">
+                                <div className="card-body">
+                                    <div className="d-flex justify-content-between align-items-center mb-3">
+                                        <span className="fw-bold" style={{ fontSize: "24px" }}>Total Pendapatan</span>
+                                        <div className="d-flex column-gap-3" style={{ fontSize: "18px" }}>
+                                            <span className="d-flex align-items-center"><i class="bi bi-dot" style={{ fontSize: "5rem" }}></i> <div>Untung</div></span>
+                                            <span className="d-flex align-items-center"><i class="bi bi-dot" style={{ fontSize: "5rem" }}></i> <div>Rugi</div></span>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-start align-items-center column-gap-3">
+                                        <div>
+                                            <span className="fw-bold" style={{ fontSize: "36px" }}>Rp 1.200.000</span>
+                                        </div>
+                                        <div>
+                                            <span className="fw-bold" style={{ fontSize: "15px", color: "green" }}>5% dari bulan kemarin</span>
+                                        </div>
+                                    </div>
+                                    <div className="chart">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* barang terjual */}
+                    </div>
+                    {/* table */}
+                </div>
+            </div>
         </DashboardLayout>
     )
 }
