@@ -143,6 +143,10 @@ export default function EditProduct() {
 
     return (
         <DashboardLayout>
+            <HeadingTitle title="Edit Produk">
+                <li className="breadcrumb-item"><Link to="/dashboard/products" style={{ color: "white" }}>Produk</Link></li>
+                <li className="breadcrumb-item active" aria-current="page" style={{ color: "#637381" }}>Edit Produk</li>
+            </HeadingTitle>
             <SweetAlert2 {...swalProps} />
         </DashboardLayout>
     )
