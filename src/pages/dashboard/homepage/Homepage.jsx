@@ -5,6 +5,7 @@ import catIcon from '../../../assets/img/dashboard/cart.svg'
 import pelangganIcon from '../../../assets/img/dashboard/pelanggan.svg'
 import CardMenu from "../../../components/dashboard/homepage/CardMenu";
 import { useMediaQuery } from 'react-responsive'
+import ProgresBar from "../../../components/dashboard/homepage/ProgresBar";
 
 export default function Homepage() {
     const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 992px)' })
@@ -118,6 +119,18 @@ export default function Homepage() {
                             </div>
                         </div>
                         {/* barang terjual */}
+                        <div className="col-lg-5">
+                            <div className="card p-2 border-0 shadow-sm">
+                                <div className="card-body d-flex flex-column row-gap-3">
+                                    <span className="fw-bold" style={{ fontSize: "24px" }}>Barang paling terjual</span>
+                                    {
+                                        productSold.map((item, index) => (
+                                            <ProgresBar key={index} name={item.name} value={item.value} />
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     {/* table */}
                 </div>
