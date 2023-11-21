@@ -39,7 +39,7 @@ function Navbar({ products }) {
                     </a>
                   </Link>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div className="col-lg-4 col-md-6 col-sm-12">
                   <div className="row">
                     <div className="col">
                       <input
@@ -60,6 +60,11 @@ function Navbar({ products }) {
                       )}
                     </div>
                   </div>
+                </div>
+                <div className="col-2">
+                <Link to="/cart">
+                          <img className="icon__checkout" id="cart" src={imgCart} alt="Cart" />
+                </Link>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-12">
                   <Button />
