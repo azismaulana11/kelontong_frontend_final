@@ -7,6 +7,9 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import Register from "../pages/Register";
 import DashboardHomepage from "../pages/dashboard/homepage/Homepage";
+import DashboardProduct from "../pages/dashboard/product/Product";
+import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
+import DashboardEditProduct from "../pages/dashboard/product/EditProduct";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +21,9 @@ const AppRoutes = () => {
       <Route path="/reset-password" element={<ResetPassword/>} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<DashboardHomepage />} />
+      <Route path="/dashboard/products" element={<DashboardProduct />} />
+      <Route path="/dashboard/products/add" element={<DashboardAddProduct />} />
+      <Route path="/dashboard/products/edit/:id" element={<DashboardEditProduct />} />
     </Routes>
   );
 };
