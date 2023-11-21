@@ -4,6 +4,7 @@ import Header from '../components/navbar/Header'
 import Footer from '../components/navbar/Footer'
 import axios from 'axios'
 import SweetAlert2 from 'react-sweetalert2'
+import IncrementButton from '../components/IncrementButton'
 
 
 export default function Details() {
@@ -41,17 +42,7 @@ export default function Details() {
                         <h5 className="stock fw-normal fs-6 text"></h5>
                         <h2 className="toko fw-bold fs-5 text lh-lg mt-4">Pengiriman dari: </h2>
                         <h5 className="toko fw-normal fs-6 text">Toko Luna</h5>
-                        <div className="qty container mt-5">
-                            <div className="row">
-                                <div className="col-md-5">
-                                    <div className=" quantity input-group">
-                                        <span className="minus btn">-</span>
-                                        <span className="num">1</span>
-                                        <span className="plus btn">+</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <IncrementButton />
                         <div className="button checkout d-flex mt-5 justify-content-start">
                             <button type="button" className="btn btn-primary" onClick={()=> {
                                 setSwal({
