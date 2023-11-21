@@ -3,8 +3,11 @@ import penjualanIcon from '../../../assets/img/dashboard/penjualan.svg'
 import produkIcon from '../../../assets/img/dashboard/produk.svg'
 import catIcon from '../../../assets/img/dashboard/cart.svg'
 import pelangganIcon from '../../../assets/img/dashboard/pelanggan.svg'
+import CardMenu from "../../../components/dashboard/homepage/CardMenu";
+import { useMediaQuery } from 'react-responsive'
 
 export default function Homepage() {
+    const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 992px)' })
     const cardMenuItem = [
         { title: "Produk", value: 38, icon: produkIcon },
         { title: "Penjualan", value: 120, icon: penjualanIcon },
@@ -77,6 +80,16 @@ export default function Homepage() {
     ]
     return (
         <DashboardLayout>
+            <div className="p-4 position-relative" style={{ height: isDesktopOrLaptop ? "200px" : "100%", backgroundColor: "#624BFF" }}>
+                <span className="fw-bold text-light" style={{ fontSize: "26px" }}>Dashboard</span>
+                <div className={`container ${isDesktopOrLaptop ? 'position-absolute' : 'pt-4'} start-0 end-0 `} style={{ bottom: "-30px" }}>
+                    <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-4 ${isDesktopOrLaptop ? '' : 'row-gap-3'}`}>
+                        {cardMenuItem.map((item, index) => (
+                            <CardMenu key={index} title={item.title} value={item.value} icon={item.icon} />
+                        ))}
+                    </div>
+                </div>
+            </div>
         </DashboardLayout>
     )
 }
