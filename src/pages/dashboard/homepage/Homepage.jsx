@@ -6,6 +6,7 @@ import pelangganIcon from '../../../assets/img/dashboard/pelanggan.svg'
 import CardMenu from "../../../components/dashboard/homepage/CardMenu";
 import { useMediaQuery } from 'react-responsive'
 import ProgresBar from "../../../components/dashboard/homepage/ProgresBar";
+import TransactionItem from "../../../components/dashboard/homepage/TransactionItem";
 
 export default function Homepage() {
     const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 992px)' })
@@ -133,6 +134,39 @@ export default function Homepage() {
                         </div>
                     </div>
                     {/* table */}
+                    <div className="row">
+                        {/* create table to see last transaction */}
+                        <div className="col-12">
+                            <div className="card border-0 shadow-sm">
+                                <div className="card-body">
+                                    <div className="d-flex justify-content-between align-items-center mb-3">
+                                        <span className="fw-bold" style={{ fontSize: "18px" }}>Transaksi Terakhir</span>
+                                    </div>
+                                    <div className="table-responsive">
+                                        <table className="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Produk</th>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>OrderId</th>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Tanggal</th>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Nama Pelanggan</th>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Status</th>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Jumlah</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    transactions.map((item, index) => (
+                                                        <TransactionItem key={index} product={item.product} orderId={item.orderId} date={item.date} customerName={item.customerName} status={item.status} amount={item.amount} />
+                                                    ))
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </DashboardLayout>
