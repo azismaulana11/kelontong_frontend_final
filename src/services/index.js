@@ -1,9 +1,6 @@
 import axios from 'axios'
-
 const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
-
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
-
 console.log(BASE_URL_API)
 
 const getProductList = async () => {
@@ -15,6 +12,16 @@ const getProductList = async () => {
         console.log(error)
     }
 }
+
+const register = async (userData) => {
+  try {
+    const response = await axios.post(`${BASE_URL_API_LOGIN_REGISTER}/register`, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error during registration:', error);
+    throw error;
+  }
+};
 
 const login = async (email, password) => {
     try {
@@ -84,9 +91,9 @@ const resetPassword = async (email, token, newPassword) => {
 };
 
 
-
 export {
 getProductList,
+register,
 login,
 forgotPassword,
 resetPassword

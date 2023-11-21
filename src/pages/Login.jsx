@@ -46,10 +46,11 @@ document.title = 'Login Member';
               );
             console.log(response.data);   
             Cookies.set('role', response.data.role, { expires: 7 });
+            Cookies.set('name', response.data.name);
             Cookies.set('access_token', response.data.access_token, { expires: 7 });
 
             // Redirect ke /homepage
-            navigate('/homepage');
+            navigate('/');
           });
         } else {
           // Jika pengguna belum diverifikasi, munculkan pesan
