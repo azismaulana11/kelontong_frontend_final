@@ -1,18 +1,4 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { getProductBySearch } from '../../services';
-
-
-export default function Header({ setResults }) {
-  const [input, setInput] = useState("");
-
-  const handleChange = (value) => {
-    setInput(value)
-    getProductBySearch(value, setResults);
-  }
-  return (
-    <>
-      <header className='header'>
+<header className='header'>
         <div className='col'>
           <nav className="container-fluid pt-3 pb-3 ps-5 pe-5">
             <div className="navbar navbar-expand-lg col-12 align">
@@ -25,7 +11,7 @@ export default function Header({ setResults }) {
 
                 <div className="col-lg-6 col-md-6 col-sm-12 mt-3">
                   <div className="search-group d-flex">
-                    <input id="searchInput" type="text" className="form-control" placeholder="search" aria-label="search" value={input} onChange={(e) => handleChange(e.target.value)} />
+                    <input type="text" className="form-control" placeholder="search" aria-label="search" value={input} onChange={(e) => handleChange(e.target.value)} />
                     <ul className="navbar-nav">
                       <li className="nav-item">
                         <Link className="nav-link" to={"/cart"}>
@@ -48,6 +34,3 @@ export default function Header({ setResults }) {
           </nav>
         </div>
       </header>
-    </>
-  )
-}

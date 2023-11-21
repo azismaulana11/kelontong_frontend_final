@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import Product from './pages/Product'
+import { AppRoutes } from './routes/Routes'
 
 
 export default function App() {
     return (
         <>
-         <Product />
+            <AppRoutes />
         </>
     )
 }
