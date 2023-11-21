@@ -24,9 +24,9 @@ function Navbar() {
                         <input type="text" className="form-control" id="search" aria-label="Search" placeholder="Search..." />
                       </div>
                       <div className="col-md-3">
-                        <a href="cart.html">
+                        <Link to="/cart">
                           <img className="icon__checkout" id="cart" src={imgCart} alt="Cart" />
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
