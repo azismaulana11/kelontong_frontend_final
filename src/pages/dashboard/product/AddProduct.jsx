@@ -1,9 +1,13 @@
+import HeadingTitle from "../../../components/dashboard/HeadingTitle";
 import DashboardLayout from "../../../layout/DashboardLayout";
 
 export default function AddProduct() {
     return (
         <DashboardLayout>
-            
+            <HeadingTitle title="Tambah Produk">
+                <li className="breadcrumb-item"><Link to="/dashboard/products" style={{ color: "white" }}>Produk</Link></li>
+                <li className="breadcrumb-item active" aria-current="page" style={{ color: "#637381" }}>Add Produk</li>
+            </HeadingTitle>
         </DashboardLayout>
     )
 }
