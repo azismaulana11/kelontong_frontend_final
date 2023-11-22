@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import DashboardLayout from "../../../layouts/DashboardLayout";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SweetAlert2 from 'react-sweetalert2';
 import HeadingTitle from "../../../components/dashboard/HeadingTitle";
+import DashboardLayout from "../../../layout/DashboardLayout";
 
 export default function EditProduct() {
     const BASE_SERVER = "http://localhost:5500";
