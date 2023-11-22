@@ -47,6 +47,7 @@ const handleLogout = () => {
 
           {isLoggedIn && name && (
             <>
+               {/* <!-- Example split danger button --> */}
               <div className="container">
                 <div className="row">
                   <div className="col">
