@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import DashboardLayout from "../../../layout/DashboardLayout";
+import DashboardLayout  from "../../../layout/DashboardLayout";
 import deleteIcon from "../../../assets/img/dashboard/delete.svg";
 import editIcon from "../../../assets/img/dashboard/edit.svg";
 import { useEffect, useState } from "react";
@@ -64,7 +64,7 @@ export default withSwal((props, ref) => {
                         <div>
                             <Link to="add" className="btn btn-sm btn-primary p-2 mb-3 fw-bold" style={{ background: "#624BFF", outline: "none", border: "none" }}>Tambah</Link>
                         </div>
-                        <div className="card border-0 shadow-sm">
+                        <div className="card border-0 shadow-sm w-100">
                             <div className="card-body p-0">
                                 <div className="table-responsive">
                                     <table className="table table-borderless">
