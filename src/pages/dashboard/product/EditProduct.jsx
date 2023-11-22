@@ -150,7 +150,7 @@ export default function EditProduct() {
             <div className="p-4">
                 <div className="row">
                     <div className="col-12">
-                        <div className="card">
+                        <div className="card w-100">
                             <div className="card-body">
                                 <div className="mb-3 fs-4">
                                     Edit Produk
