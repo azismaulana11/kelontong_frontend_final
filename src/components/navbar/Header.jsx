@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getProductBySearch } from '../../services';
+import ProfileButton from '../ProfileButton';
 
 
 export default function Header({ setResults }) {
@@ -39,9 +40,7 @@ export default function Header({ setResults }) {
                 </div>
 
                 <div className="col-lg-3 col-md-3 col-sm-12 mt-3 me-0">
-                  <div className="profile">
-                    <a href="#" id="profile"></a>
-                  </div>
+                  <ProfileButton />
                 </div>
               </div>
             </div>
