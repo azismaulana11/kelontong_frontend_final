@@ -28,22 +28,22 @@ function Button() {
 
           {username && (
             <>
-          {/* <!-- Example split danger button --> */}
-          <div className="container">
-            <div className="row">
-              <div className="col">
-                  <div className="btn-group">
-              <button type="button" className="btn btn-outline-info btn-sm">Selamat datang, {username}!</button>
-              <button type="button" className="btn btn-outline-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                <span className="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <ul className="dropdown-menu">
-                <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
-              </ul>
-            </div>
+               {/* <!-- Example split danger button --> */}
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-outline-info btn-sm">Selamat datang, {username}!</button>
+                      <button type="button" className="btn btn-outline-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span className="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
             </>
           )}
         </div>

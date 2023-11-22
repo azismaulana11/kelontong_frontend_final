@@ -1,19 +1,11 @@
 import { useState } from 'react'
-import AppRoutes from './routes/Routes'
-function App() {
-  return (
-    <AppRoutes/>
-  )
-}
+import { AppRoutes } from './routes/Routes'
 
-export default App
 
-  import AppRoutes from './routes/Routes'
-  function App() {
+export default function App() {
     return (
-      <AppRoutes/>
+        <>
+            <AppRoutes />
+        </>
     )
-  }
-
-  export default App
-
+}
