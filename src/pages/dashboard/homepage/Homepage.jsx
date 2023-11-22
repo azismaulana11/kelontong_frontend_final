@@ -1,4 +1,4 @@
-import DashboardLayout from "../../../layout/DashboardLayout";
+import DashboardLayout from '../../../layout/DashboardLayout';
 import penjualanIcon from '../../../assets/img/dashboard/penjualan.svg'
 import produkIcon from '../../../assets/img/dashboard/produk.svg'
 import catIcon from '../../../assets/img/dashboard/cart.svg'
@@ -97,13 +97,13 @@ export default function Homepage() {
                     <div className="row mb-3">
                         {/* total pendapatan */}
                         <div className="col-lg-7 mb-4">
-                            <div className="card border-0 shadow-sm">
+                            <div className="card border-0 shadow-sm w-100">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <span className="fw-bold" style={{ fontSize: "24px" }}>Total Pendapatan</span>
                                         <div className="d-flex column-gap-3" style={{ fontSize: "18px" }}>
-                                            <span className="d-flex align-items-center"><i class="bi bi-dot" style={{ fontSize: "5rem" }}></i> <div>Untung</div></span>
-                                            <span className="d-flex align-items-center"><i class="bi bi-dot" style={{ fontSize: "5rem" }}></i> <div>Rugi</div></span>
+                                            <span className="d-flex align-items-center"><div><span style={{color: "#624BFF"}}>*</span> Untung</div></span>
+                                            <span className="d-flex align-items-center"><div>* Rugi</div></span>
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center column-gap-3">
@@ -121,7 +121,7 @@ export default function Homepage() {
                         </div>
                         {/* barang terjual */}
                         <div className="col-lg-5">
-                            <div className="card p-2 border-0 shadow-sm">
+                            <div className="card p-2 border-0 shadow-sm w-100">
                                 <div className="card-body d-flex flex-column row-gap-3">
                                     <span className="fw-bold" style={{ fontSize: "24px" }}>Barang paling terjual</span>
                                     {
@@ -137,7 +137,7 @@ export default function Homepage() {
                     <div className="row">
                         {/* create table to see last transaction */}
                         <div className="col-12">
-                            <div className="card border-0 shadow-sm">
+                            <div className="card border-0 shadow-sm w-100">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <span className="fw-bold" style={{ fontSize: "18px" }}>Transaksi Terakhir</span>
