@@ -45,11 +45,15 @@ document.title = 'Login Member';
                 })
               );
             console.log(response.data);   
-            Cookies.set('role', response.data.role, { expires: 7 });
-            Cookies.set('access_token', response.data.access_token, { expires: 7 });
+            const expirationDate = new Date();
+          expirationDate.setTime(expirationDate.getTime() + 60 * 60 * 1000); // 1 jam dalam milidetik
+          Cookies.set('role', response.data.role, { expires: expirationDate });
+          Cookies.set('name', response.data.name, { expires: expirationDate });
+          Cookies.set('isLoggedIn', response.data.isLoggedIn, { expires: expirationDate });
+          Cookies.set('access_token', response.data.access_token, { expires: expirationDate });
 
             // Redirect ke /homepage
-            navigate('/homepage');
+            navigate('/');
           });
         } else {
           // Jika pengguna belum diverifikasi, munculkan pesan

@@ -1,6 +1,8 @@
 import axios from "axios"
 
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
+const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
+
 
 export const getProductBySearch = async (value,setResults) => {
     try {
@@ -52,7 +54,6 @@ const getProductList = async () => {
     }
 }
 
-
 const register = async (userData) => {
   try {
     const response = await axios.post(`${BASE_URL_API_LOGIN_REGISTER}/register`, userData);
@@ -77,6 +78,7 @@ const login = async (email, password) => {
             // Tangkap pesan error jika ada
             const errorMessage = error.response.data.message;
             console.log(`Error message: ${errorMessage}`);
+
             // Periksa apakah properti isVerified tersedia dalam respons error
             const errorVerified = error.response.data.isVerified;
             if (errorVerified !== undefined) {
@@ -91,7 +93,7 @@ const login = async (email, password) => {
         throw error;
     }
 };
-      
+
 const forgotPassword = async (email) => {
   try {
       const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;

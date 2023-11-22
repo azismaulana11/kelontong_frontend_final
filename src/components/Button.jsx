@@ -1,21 +1,40 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import Cookies from 'js-cookie';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetLoginData } from '../redux/User/LoginSlicer'; // Sesuaikan path dengan struktur direktori Anda
 
 function Button() {
-  const username = Cookies.get('username');
+  const name = Cookies.get('name');
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const dispatch = useDispatch();
 
   // Fungsi untuk logout
-  const handleLogout = () => {
-    Cookies.remove('username');
-    Cookies.remove('access_token');
-    window.location.href = '/';
-  };
+const handleLogout = () => {
+  Cookies.remove('name');
+  Cookies.remove('access_token');
+  dispatch(resetLoginData());
+
+  // Tampilkan SweetAlert 2 setelah logout berhasil
+  Swal.fire({
+    icon: 'success',
+    title: 'Logout Berhasil!',
+    showConfirmButton: false,
+    timer: 1500, // Waktu notifikasi ditampilkan dalam milidetik (ms)
+  });
+
+  // Redirect ke halaman utama setelah beberapa saat
+  setTimeout(() => {
+    window.location.href = '/'; // Jangan lupa mengganti sesuai kebutuhan
+  }, 1500); // Sesuaikan dengan waktu timer SweetAlert
+};
 
   return (
     <div className="container">
       <div className="row">
         <div className="col ps-lg-5 justify-content-end">
-          {!username && (
+          {!isLoggedIn && !name && (
             <>
               <Link to="/login">
                 <button type="button" className="btn btn-light border border-primary text-primary">Masuk</button>
@@ -26,14 +45,14 @@ function Button() {
             </>
           )}
 
-          {username && (
+          {isLoggedIn && name && (
             <>
                {/* <!-- Example split danger button --> */}
               <div className="container">
                 <div className="row">
                   <div className="col">
                     <div className="btn-group">
-                      <button type="button" className="btn btn-outline-info btn-sm">Selamat datang, {username}!</button>
+                      <button type="button" className="btn btn-outline-info btn-sm">Selamat datang, {name}!</button>
                       <button type="button" className="btn btn-outline-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                         <span className="visually-hidden">Toggle Dropdown</span>
                       </button>
