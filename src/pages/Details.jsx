@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../components/navbar/Header'
-import Footer from '../components/navbar/Footer'
 import axios from 'axios'
 import SweetAlert2 from 'react-sweetalert2'
-import IncrementButton from '../components/IncrementButton'
 
+import Header from '../components/navbar/Header'
+import Footer from '../components/navbar/Footer'
+import IncrementButton from '../components/IncrementButton'
+import { postCart } from '../services'
 
 export default function Details() {
     const [results, setResults] =  useState({})
-    const [swal,setSwal] = useState ({})    
-    const{id} = useParams()
+    const [swal, setSwal] = useState ({})    
+    const{ id } = useParams()
+    const [quantity, setQuantity] = useState(1)
+    const [total, setTotal] =useState(0)
+
     useEffect(()=> {
         const fetchDataById = async () => {
             try {
@@ -22,8 +26,29 @@ export default function Details() {
             }
         }
         fetchDataById()
-    },[])
+    },[id])
 
+    useEffect (() => {
+        setTotal(results.price * quantity)
+    }, [results.price, quantity])
+
+    const addToCart = async () => {
+        try {
+          await postCart(results.id, results.name, results.img, results.price, quantity,total);
+          setSwal({
+            show: true,
+            title: 'Ditambahkan ke keranjang!',
+            text: 'Produk ini ditambahkan ke keranjang',
+            icon: 'success'
+          });
+        } catch (error) {
+          console.error('Error adding to cart:', error);
+        }
+    }
+
+    const handleQuantityChange = (value) => {
+        setQuantity(value);
+    }
 
     return (
         <>
@@ -42,16 +67,9 @@ export default function Details() {
                         <h5 className="stock fw-normal fs-6 text"></h5>
                         <h2 className="toko fw-bold fs-5 text lh-lg mt-4">Pengiriman dari: </h2>
                         <h5 className="toko fw-normal fs-6 text">Toko Luna</h5>
-                        <IncrementButton />
+                        <IncrementButton value={ quantity } onChange={ handleQuantityChange } />
                         <div className="button checkout d-flex mt-5 justify-content-start">
-                            <button type="button" className="btn btn-primary" onClick={()=> {
-                                setSwal({
-                                    show: true,
-                                    title: 'Ditambahkan ke keranjang!',
-                                    text: 'Produk ini ditambahkan ke keranjang',
-                                    icon: 'success' 
-                                })
-                            }}>Masukkan keranjang</button>
+                            <button type="button" className="btn btn-primary" onClick= { addToCart }>Masukkan keranjang</button>
                             <SweetAlert2 {...swal}/>
                             <button type="button" className="btn btn-outline-primary ms-4">Beli Sekarang</button>
                         </div>
