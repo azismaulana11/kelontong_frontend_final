@@ -1,7 +1,48 @@
-import axios from 'axios'
-const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
+import axios from "axios"
+
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
-console.log(BASE_URL_API)
+const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
+
+
+export const getProductBySearch = async (value,setResults) => {
+    try {
+      const response = await axios.get('https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product')
+      const allProducts = response.data
+      const filterProducts =  allProducts.filter((product) => {
+        return value && product && product.name && product.name.toLowerCase().includes(value)
+      })
+      setResults(filterProducts)
+       } catch (error) {
+      console.log(error);
+    }
+}
+
+
+export const postCart = async (id, name, img, price, qty, total) => {
+  try {
+    const response = await axios.post(
+      'https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/cart',
+      {
+        id: id,
+        name: name,
+        img: img,
+        price: price,
+        quantity: qty,
+        total: total,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error);
+    throw new Error('Gagal menambahkan barang ke keranjang');
+  }
+};
+
 
 const getProductList = async () => {
     try {
@@ -54,40 +95,40 @@ const login = async (email, password) => {
 };
 
 const forgotPassword = async (email) => {
-    try {
-        const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;
-        const response = await axios.post(url_forgot, { email });
-        return response.data;
-    } catch (error) {
-        if (error.response) {
-            const statusCode = error.response.status;
-            console.log(`HTTP status code: ${statusCode}`);
+  try {
+      const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;
+      const response = await axios.post(url_forgot, { email });
+      return response.data;
+  } catch (error) {
+      if (error.response) {
+          const statusCode = error.response.status;
+          console.log(`HTTP status code: ${statusCode}`);
 
-            if (statusCode === 404) {
-                // Email tidak terdaftar
-                return { error: 'Email not found' };
-            }
+          if (statusCode === 404) {
+              // Email tidak terdaftar
+              return { error: 'Email not found' };
+          }
 
-            // Tangkap pesan error jika ada
-            const errorMessage = error.response.data.message;
-            console.log(`Error message: ${errorMessage}`);
-        } else {
-            console.log('Error:', error.message);
-        }
+          // Tangkap pesan error jika ada
+          const errorMessage = error.response.data.message;
+          console.log(`Error message: ${errorMessage}`);
+      } else {
+          console.log('Error:', error.message);
+      }
 
-        throw error;
-    }
+      throw error;
+  }
 }
 
 const resetPassword = async (email, token, newPassword) => {
-    try {
-        const url_reset = `${BASE_URL_API_LOGIN_REGISTER}/reset-password`;
-        const response = await axios.post(url_reset, { email, token, newPassword });
-        return response.data;
-    } catch (error) {
-        console.error('Error during password reset:', error);
-        throw error;
-    }
+  try {
+      const url_reset = `${BASE_URL_API_LOGIN_REGISTER}/reset-password`;
+      const response = await axios.post(url_reset, { email, token, newPassword });
+      return response.data;
+  } catch (error) {
+      console.error('Error during password reset:', error);
+      throw error;
+  }
 };
 
 

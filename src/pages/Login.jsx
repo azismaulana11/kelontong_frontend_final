@@ -191,7 +191,7 @@ document.title = 'Login Member';
                   <div className="container">
                     <div className="row pt-3">
                       <div className="col-12 text-center">
-                        <p>Belum punya akun?<a href="register.html">Daftar</a></p>
+                        <p>Belum punya akun?<Link to='/register'>Daftar</Link></p>
                       </div>
                     </div>
                   </div>
