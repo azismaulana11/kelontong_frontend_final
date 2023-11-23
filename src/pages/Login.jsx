@@ -49,7 +49,6 @@ document.title = 'Login Member';
           expirationDate.setTime(expirationDate.getTime() + 60 * 60 * 1000); // 1 jam dalam milidetik
           Cookies.set('role', response.data.role, { expires: expirationDate });
           Cookies.set('name', response.data.name, { expires: expirationDate });
-          Cookies.set('isLoggedIn', response.data.isLoggedIn, { expires: expirationDate });
           Cookies.set('access_token', response.data.access_token, { expires: expirationDate });
 
             // Redirect ke /homepage

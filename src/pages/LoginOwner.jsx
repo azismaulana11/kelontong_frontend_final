@@ -8,17 +8,18 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import NavbarLogin from '../components/NavbarLogin';
 
-function LoginOwner() {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
 useEffect(() => {
-document.title = 'Login Owner';
+document.title = 'Login Member';
 }, []);
 
-  const handleLogin = async (e) => {
+ const handleLogin = async (e) => {
   e.preventDefault();
 
   try {
@@ -43,13 +44,18 @@ document.title = 'Login Owner';
                   email: response.data.user,
                 })
               );
-            console.log(response.data);
-            
-            Cookies.set('role', response.data.role, { expires: 7 });
-            Cookies.set('access_token', response.data.access_token, { expires: 7 });
+            console.log(response.data);   
+            const expirationDate = new Date();
+          expirationDate.setTime(expirationDate.getTime() + 60 * 60 * 1000); // 1 jam dalam milidetik
+          Cookies.set('role', response.data.role, { expires: expirationDate });
+          Cookies.set('name', response.data.name, { expires: expirationDate });
+          Cookies.set('access_token', response.data.access_token, { expires: expirationDate });
+
+            // Redirect ke /dashboard
             navigate('/dashboard');
           });
         } else {
+          // Jika pengguna belum diverifikasi, munculkan pesan
           Swal.fire({
             title: 'Login ditolak',
             text: 'Anda belum diverifikasi. Silakan verifikasi akun Anda.',
@@ -57,7 +63,16 @@ document.title = 'Login Owner';
             confirmButtonText: 'Ok'
           });
         }
+      } else if (response.data.role === 'customer') {
+        // Jika peran adalah 'owner' dan mencoba masuk ke halaman customer
+        Swal.fire({
+          title: 'Login ditolak',
+          text: 'Anda tidak memiliki izin untuk mengakses halaman ini.',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
       } else {
+        // Jika peran bukan 'owner' atau 'owner'
         Swal.fire({
           title: 'Login ditolak',
           text: 'Anda tidak memiliki izin untuk mengakses halaman ini.',
@@ -66,6 +81,7 @@ document.title = 'Login Owner';
         });
       }
     } else if (response.statusCode === 401 && !response.data.isVerified) {
+      // Jika respons adalah 401 dan pengguna belum diverifikasi
       Swal.fire({
         title: 'Login ditolak',
         text: 'Email Anda belum diverifikasi. Silakan verifikasi akun Anda.',
@@ -73,6 +89,7 @@ document.title = 'Login Owner';
         confirmButtonText: 'Ok'
       });
     } else {
+      // Menangani respons selain 200 dan 401
       Swal.fire({
         title: 'Login gagal',
         text: response.data.message || 'Terjadi kesalahan saat login.',
@@ -82,6 +99,7 @@ document.title = 'Login Owner';
     }
   } catch (error) {
     console.error('Error during login:', error);
+    // Menangani kesalahan selama proses login
     Swal.fire({
       title: 'Login gagal',
       text: 'Terjadi kesalahan saat login.',
@@ -90,6 +108,7 @@ document.title = 'Login Owner';
     });
   }
 };
+
 
   return (
     <>
@@ -112,7 +131,7 @@ document.title = 'Login Owner';
               </div>
 
             <NavbarLogin/>
-          
+
               <form onSubmit={handleLogin}>
                 <div className="container">
                   <div className="row justify-content-center">
@@ -171,7 +190,7 @@ document.title = 'Login Owner';
                   <div className="container">
                     <div className="row pt-3">
                       <div className="col-12 text-center">
-                      <p>Belum punya akun?<Link to='/register'>Daftar</Link></p>
+                        <p>Belum punya akun?<Link to='/register'>Daftar</Link></p>
                       </div>
                     </div>
                   </div>
@@ -185,4 +204,4 @@ document.title = 'Login Owner';
   );
 }
 
-export default LoginOwner;
+export default Login;

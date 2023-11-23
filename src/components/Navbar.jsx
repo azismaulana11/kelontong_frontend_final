@@ -71,7 +71,7 @@ function Navbar({ products }) {
 
       <div className="row justify-content-center mt-3">
         {searchResults.map(product => (
-          <Link key={product.id} to={`/product/${product.id}`} className="list-group-item col-lg-3 col-md-4 col-sm-6 m-2">
+          <Link key={product._id} to={`/details/${product._id}`} className="list-group-item col-lg-3 col-md-4 col-sm-6 m-2">
             <img src={product.image} className="card-img-top" alt={product.name} />
             <div className="card-body">
               <h5 className="card-title">{product.name}</h5>

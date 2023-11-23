@@ -1,12 +1,12 @@
 import axios from "axios"
 
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
-const BASE_URL_API = "https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product";
+const BASE_URL_API = "http://localhost:7600/api/v1/products";
 
 
 export const getProductBySearch = async (value,setResults) => {
     try {
-      const response = await axios.get('https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/product')
+      const response = await axios.get('localhost:7600/api/v1/products')
       const allProducts = response.data
       const filterProducts =  allProducts.filter((product) => {
         return value && product && product.name && product.name.toLowerCase().includes(value)
