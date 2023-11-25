@@ -6,7 +6,7 @@ const BASE_URL_API = "http://localhost:7600/api/v1/products";
 
 export const getProductBySearch = async (value,setResults) => {
     try {
-      const response = await axios.get('localhost:7600/api/v1/products')
+      const response = await axios.get(`${BASE_URL_API}`)
       const allProducts = response.data
       const filterProducts =  allProducts.filter((product) => {
         return value && product && product.name && product.name.toLowerCase().includes(value)
@@ -18,16 +18,15 @@ export const getProductBySearch = async (value,setResults) => {
 }
 
 
-export const postCart = async (id, name, img, price, qty, total) => {
+export const postCart = async ( product_id, customer_id, store, qty, total) => {
   try {
     const response = await axios.post(
-      'https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/cart',
+      'http://localhost:7600/api/v1/cart',
       {
-        id: id,
-        name: name,
-        img: img,
-        price: price,
-        quantity: qty,
+        product_id : product_id,
+        customer_id : customer_id,
+        store : store,
+        qty: qty,
         total: total,
       },
       {
