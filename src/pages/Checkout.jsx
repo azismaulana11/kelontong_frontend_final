@@ -60,6 +60,18 @@ export default function Checkout() {
             image: "https://asset-a.grid.id/crop/0x0:0x0/x/photo/2018/09/25/3603630647.jpg"
         }
     ]
+
+    // Total belanja
+    const [totalNoShipping, setTotalNoShipping] = useState(0)
+    const [totalAfterShipping, setTotalAfterShipping] = useState(0)
+
+    useEffect(() => {
+        const totalPrice = products.reduce((total, product) => {
+            return total + product.price * product.quantity
+        }, 0)
+        setTotalNoShipping(totalPrice)
+        setTotalAfterShipping(totalPrice)
+    }, [])
     return (
         <>
 
