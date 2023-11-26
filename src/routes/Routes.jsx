@@ -12,6 +12,7 @@ import DashboardHomepage from "../pages/dashboard/homepage/Homepage";
 import DashboardProduct from "../pages/dashboard/product/Product";
 import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
 import DashboardEditProduct from "../pages/dashboard/product/EditProduct";
+import Checkout from "../pages/Checkout";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/product" element={<Product />} />
       <Route path="/details/:id" element={<Details />}/>
+      <Route path="/checkout" element={<Checkout />}/>
       <Route path="/dashboard" element={<DashboardHomepage />} />
       <Route path="/dashboard/products" element={<DashboardProduct />} />
       <Route path="/dashboard/products/add" element={<DashboardAddProduct />} />
@@ -33,4 +35,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
-
