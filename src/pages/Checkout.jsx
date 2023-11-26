@@ -105,7 +105,12 @@ export default function Checkout() {
 
     return (
         <>
-
+            <nav className="container py-4 nav__bar mb-4">
+                <div className="fw-bold" style={{
+                    fontSize: "32px",
+                    color: "#0376cb"
+                }}>Kelontong</div>
+            </nav>
         </>
     )
 }
