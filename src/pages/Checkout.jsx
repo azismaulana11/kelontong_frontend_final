@@ -182,6 +182,71 @@ export default function Checkout() {
                                 )
                             })}
                         </div>
+                        <div className="checkout__result mb-5">
+                            <div className="d-flex justify-content-between align-items-center mb-4 address__option">
+                                <h5 className="fw-semibold ms-3">
+                                    Pilih Pengiriman
+                                </h5>
+                                <div className="btn-group">
+                                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false" style={{
+                                        background: "#0376cb",
+                                    }}>
+                                        {
+                                            selectedShipping.length > 0 ? selectedShipping : "Pilih Pengiriman"
+                                        }
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                        {
+                                            shippings.map((shipping, index) => {
+                                                return (
+                                                    <li role='button' key={index} onClick={handleShipping}>
+                                                        <span className="dropdown-item">{shipping.name} - Rp {shipping.price.toLocaleString()}</span>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="line-2 mb-4"></div>
+                            <div className="result__summary">
+                                <h5 className="fw-bold ms-3 mb-3">
+                                    Ringkasan Belanja
+                                </h5>
+                                <div className="d-flex justify-content-between total__summary">
+                                    <h5 className="fw-semibold ms-3">
+                                        Total
+                                    </h5>
+                                    <h5 className="fw-semibold">
+                                        <span className="price-from-product">Rp. {totalNoShipping.toLocaleString()}</span>
+                                    </h5>
+                                </div>
+                                <div className="d-flex justify-content-between" id="cost-price">
+                                    {
+                                        selectedShipping.length > 0 ?
+                                            <>
+                                                <h5 className="fw-semibold ms-3">
+                                                    Ongkos Kirim
+                                                </h5>
+                                                <h5 className="fw-semibold">
+                                                    <span className="price-from-product">Rp. {shippings.find((item) => item.name === selectedShipping).price.toLocaleString()}</span>
+                                                </h5>
+                                            </>
+                                            :
+                                            ""
+                                    }
+                                </div>
+                            </div>
+                            <div className="line mb-3"></div>
+                            <div className="d-flex justify-content-end py-3 fs-1 fw-bolder" id="total">Rp. {totalAfterShipping.toLocaleString()}</div>
+                            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button className={`
+                                    btn btn-primary ${selectedShipping.length > 0 ? "" : "disabled"}
+                                `} type="button" id="pay-button" data-bs-toggle="modal"
+                                    data-bs-target="#myModal">Pilih
+                                    Pembayaran</button>
+                            </div>
+                        </div>
                     </div>
                 </section >
             </main >
