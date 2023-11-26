@@ -72,6 +72,37 @@ export default function Checkout() {
         setTotalNoShipping(totalPrice)
         setTotalAfterShipping(totalPrice)
     }, [])
+
+    // Ongkos kirim
+    const [selectedShipping, setSeletectShipping] = useState("")
+    const shippings = [
+        {
+            name: "Instant",
+            price: 30000
+        },
+        {
+            name: "Same Day",
+            price: 20000
+        },
+        {
+            name: "Express",
+            price: 10000
+        },
+        {
+            name: "Economy",
+            price: 0
+        }
+    ]
+    const handleShipping = (e) => {
+        const shipping = e.target.textContent.split(" - ")
+        setSeletectShipping(shipping[0])
+        const shippingPrice = shippings.find((item) => item.name === shipping[0])
+        const total = shippingPrice.price + products.reduce((total, product) => {
+            return total + product.price * product.quantity
+        }, 0)
+        setTotalAfterShipping(total)
+    }
+
     return (
         <>
 
