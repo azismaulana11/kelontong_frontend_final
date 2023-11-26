@@ -2,13 +2,21 @@ import { Link } from 'react-router-dom'
 import arrowLeft from '../assets/img/chekout/arrow-left.svg'
 import tokoImg from '../assets/img/toko.png'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Checkout() {
+    const [name, setName] = useState("")
     const user = {
         name: "Jhon",
         phone: "081234567890",
         address: "Jl. Raya Bogor KM 30"
     }
+    useEffect(() => {
+        setName(user.name)
+    }, [])
+
+    // Produk
     const products = [
         {
             name: "Beras",
@@ -69,7 +77,6 @@ export default function Checkout() {
     // Total belanja
     const [totalNoShipping, setTotalNoShipping] = useState(0)
     const [totalAfterShipping, setTotalAfterShipping] = useState(0)
-
     useEffect(() => {
         const totalPrice = products.reduce((total, product) => {
             return total + product.price * product.quantity
@@ -108,6 +115,67 @@ export default function Checkout() {
         setTotalAfterShipping(total)
     }
 
+    // Midtrans
+    const [order_id, setOrder_id] = useState("")
+    const [token, setToken] = useState("")
+    const CLIENT_KEY_MIDTRANS = import.meta.env.VITE_APP_CLIENT_KEY_MIDTRANS;
+    const processPayment = async () => {
+        const newOrderId = uuidv4()
+        setOrder_id(newOrderId)
+        const data = {
+            name: name,
+            order_id: newOrderId,
+            total: totalAfterShipping,
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        const response = await axios.post(
+            "http://localhost:5500/api/v1/payment/process-transactions",
+            data,
+            config
+        )
+        setToken(response.data.token)
+    }
+    useEffect(() => {
+        if (token) {
+            window.snap.pay(token, {
+                onSuccess: function (result) {
+                    localStorage.setItem("Pembayaran", JSON.stringify(result))
+                    setToken("")
+                },
+                onPending: function (result) {
+                    localStorage.setItem("Pembayaran", JSON.stringify(result))
+                    setToken("")
+                },
+                onError: function (error) {
+                    console.log(error)
+                    setToken("")
+                },
+                onClose: function () {
+                    console.log("Anda belum menyelesaikan pembayaran")
+                    setToken("")
+                },
+            })
+
+            setName("")
+            setOrder_id("")
+            setTotalAfterShipping("")
+        }
+    }, [token])
+    useEffect(() => {
+        const midtransURL = "https://app.sandbox.midtrans.com/snap/snap.js"
+        const midtransScript = document.createElement("script")
+        midtransScript.setAttribute("src", midtransURL)
+        midtransScript.setAttribute("data-client-key", CLIENT_KEY_MIDTRANS)
+        document.body.appendChild(midtransScript)
+        return () => {
+            document.body.removeChild(midtransScript)
+        }
+    },[])
+
     return (
         <>
             <nav className="container py-4 nav__bar mb-4">
@@ -120,7 +188,7 @@ export default function Checkout() {
                 <section className="checkout">
                     <div className="mb-5 checkout__address">
                         <div className="d-flex align-items-center column-gap-2 mb-4 checkout_title">
-                            <Link href="#">
+                            <Link to={'/product'}>
                                 <img className="img-fluid me-3" src={arrowLeft} alt="" style={{
                                     width: "24px"
                                 }} />
@@ -247,8 +315,7 @@ export default function Checkout() {
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button className={`
                                     btn btn-primary ${selectedShipping.length > 0 ? "" : "disabled"}
-                                `} type="button" id="pay-button" data-bs-toggle="modal"
-                                    data-bs-target="#myModal">Pilih
+                                `} type="button" id="pay-button" onClick={processPayment}>Pilih
                                     Pembayaran</button>
                             </div>
                         </div>
