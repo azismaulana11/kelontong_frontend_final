@@ -111,6 +111,52 @@ export default function Checkout() {
                     color: "#0376cb"
                 }}>Kelontong</div>
             </nav>
+            <main className="container">
+                <section className="checkout">
+                    <div className="mb-5 checkout__address">
+                        <div className="d-flex align-items-center column-gap-2 mb-4 checkout_title">
+                            <Link href="#">
+                                <img className="img-fluid me-3" src={arrowLeft} alt="" style={{
+                                    width: "24px"
+                                }} />
+                            </Link>
+                            <h4 className="fw-bold mb-0">Checkout</h4>
+                        </div>
+                        <h5 className="fw-semibold position-relative mb-5">
+                            Alamat Pengiriman
+                            <div className='position-absolute' style={{
+                                bottom: "-20px",
+                                left: "0",
+                                width: "100%",
+                                height: "2px",
+                                background: "#b3b3b3",
+                            }}></div>
+                        </h5>
+                        <div id="address-content">
+                            <h5 className="fw-bolder mb-2">{user.name}</h5>
+                            <h5 className="mb-2">{user.phone}</h5>
+                            <h6 className="fw-light">
+                                {user.address}
+                            </h6>
+                        </div>
+                        <div className="mb-4" style={{
+                            width: "100%",
+                            height: "2px",
+                            background: "#b3b3b3",
+                            margin: "16px 0",
+                        }}></div>
+                        <button className="btn btn-outline-primary ms-3 mb-3">
+                            Pilih alamat lain
+                        </button>
+                        <div className="line-2" style={{
+                            width: "100%",
+                            height: "10px",
+                            background: "#d4d2d2",
+                            margin: "16px 0",
+                        }}></div>
+                    </div>
+                </section >
+            </main >
         </>
     )
 }
