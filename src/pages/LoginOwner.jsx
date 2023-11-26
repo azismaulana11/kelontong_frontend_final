@@ -50,6 +50,7 @@ document.title = 'Login Member';
           Cookies.set('role', response.data.role, { expires: expirationDate });
           Cookies.set('name', response.data.name, { expires: expirationDate });
           Cookies.set('access_token', response.data.access_token, { expires: expirationDate });
+          Cookies.set('user_id', response.data.id, { expires: expirationDate });
 
             // Redirect ke /dashboard
             navigate('/dashboard');
