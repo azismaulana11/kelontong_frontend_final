@@ -155,6 +155,15 @@ export default function Checkout() {
                             margin: "16px 0",
                         }}></div>
                     </div>
+                    <div className="checkout__products">
+                        <div className="mb-4" style={{
+                            fontSize: "18px",
+                            fontWeight: "600",
+                        }}>
+                            <img className="me-2" src={tokoImg} alt="" style={{ width: "32px" }} />
+                            Toko Luna
+                        </div>
+                    </div>
                 </section >
             </main >
         </>
