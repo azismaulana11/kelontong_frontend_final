@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SweetAlert2 from 'react-sweetalert2'
 
+
+
 import Header from '../components/navbar/Header'
 import Footer from '../components/navbar/Footer'
 import IncrementButton from '../components/IncrementButton'
@@ -19,8 +21,9 @@ export default function Details() {
     useEffect(() => {
         const fetchDataById = async () => {
             try {
-                const response = await axios.get(`http://localhost:7600/api/v1/products?id=${id}`)
-                const product = response.data[0]
+                const response = await axios.get(`http://localhost:7600/api/v1/products/${id}`)
+                console.log(response.data)
+                const product = response.data
                 setResults(product)
             } catch (error) {
                 console.log(error);
@@ -68,7 +71,8 @@ export default function Details() {
                         <h2 className="price fw-normal fs-5 text lh-lg">{results.price}</h2>
                         <h2 className="desc-1 fw-bold fs-5 text lh-lg">Deskripsi produk: </h2>
                         <h5 className="desc-2 fw-normal fs-6 text">{results.description}</h5>
-                        <h5 className="stock fw-normal fs-6 text"></h5>
+                        <h2 className="stock-1 fw-bold fs-5 text lh-lg">Stock: </h2>
+                        <h5 className="stock fw-normal fs-6 text">{results.stock}</h5>
                         <h2 className="toko fw-bold fs-5 text lh-lg mt-4">Pengiriman dari: </h2>
                         <h5 className="toko fw-normal fs-6 text">Toko Luna</h5>
                         <IncrementButton value={quantity} onChange={handleQuantityChange} />
