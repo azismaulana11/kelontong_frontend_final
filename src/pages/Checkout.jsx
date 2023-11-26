@@ -163,6 +163,25 @@ export default function Checkout() {
                             <img className="me-2" src={tokoImg} alt="" style={{ width: "32px" }} />
                             Toko Luna
                         </div>
+                        <div className="checkout__product mb-5" id="product-content">
+                            {products.map((product, index) => {
+                                return (
+                                    <div className="d-flex justify-content-between align-items-center mb-4 product__item border-bottom border-3 border-dark" key={index}>
+                                        <div className="d-flex align-items-center column-gap-3">
+                                            <img className="img-fluid" src={product.image} alt="" style={{ width: "150px" }} />
+                                            <div className="d-flex flex-column">
+                                                <h6 className="fw-bold mb-0 fs-4">{product.name}</h6>
+                                                <h6 className="fw-light mb-0 fs-5">Rp {product.price.toLocaleString()}</h6>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex align-items-center column-gap-3">
+                                            <h6 className="fw-bold mb-0 fs-4">{product.quantity}x</h6>
+                                            <h6 className="fw-bold mb-0 fs-3">Rp {(product.price * product.quantity).toLocaleString()}</h6>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </section >
             </main >
