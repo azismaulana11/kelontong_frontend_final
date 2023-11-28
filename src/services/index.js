@@ -66,6 +66,42 @@ const fetchDataTransaksi = async (year, month) => {
   return response.data;
 };
 
+const fetchDataBarang = async (year, month) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/penjualan/data_barang`, {
+      params: {
+        year,
+        month,
+      },
+    });
+
+    console.log('Request:', response.config);
+    console.log('Response:', response.data);
+
+    const transformedData = {
+      message: response.data.message,
+      success: response.data.success,
+      statusCode: response.data.statusCode,
+      data: response.data.data.map(item => ({
+        _id: item._id,
+        tanggal_transaksi: item.tanggal_transaksi,
+        barang_terjual: item.barang_terjual.map(barang => ({
+          nama_barang: barang.nama_barang,
+          kategori: barang.kategori,
+          jumlah_terjual: barang.jumlah_terjual,
+          total_penjualan_barang: barang.total_penjualan_barang,
+        })),
+      })),
+    };
+
+    return transformedData;
+  } catch (error) {
+    console.error('Error fetching barang data:', error);
+    throw error;
+  }
+};
+
+
 const register = async (userData) => {
   try {
     const response = await axios.post(`${BASE_URL_API_LOGIN_REGISTER}/register`, userData);
@@ -147,6 +183,7 @@ const resetPassword = async (email, token, newPassword) => {
 export {
 getProductList,
 fetchDataTransaksi,
+fetchDataBarang,
 register,
 login,
 forgotPassword,
