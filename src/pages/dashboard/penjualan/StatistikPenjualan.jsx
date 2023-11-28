@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
+// StatistikPenjualan.js
+
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../../layout/DashboardLayout';
 import HeadingTitle from '../../../components/dashboard/HeadingTitle';
+import { fetchDataTransaksi } from '../../../services';
 
 function StatistikPenjualan() {
   const [showSecondFilter, setShowSecondFilter] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState('');
-  const [incomeByMonth, setIncomeByMonth] = useState({
-    January: 1500000,
-    February: 1600000,
-    March: 1700000,
-    // Tambahkan nilai bulan lainnya jika diperlukan
-  });
+  const [incomeByMonth, setIncomeByMonth] = useState({});
+  const [transactionData, setTransactionData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchDataTransaksi(2023, selectedMonth);
+        setTransactionData(data?.data || []); // Mengasumsikan data berupa array di dalam objek response
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching transaction data:', error);
+        setLoading(false);
+        // Tangani kesalahan jika diperlukan
+      }
+    };
+
+    if (selectedMonth) {
+      fetchData();
+    }
+  }, [selectedMonth]);
 
   const handleFilterChange = (e) => {
     const selectedValue = e.target.value;
-    // Jika opsi pertama dipilih, tampilkan filter kedua
     setShowSecondFilter(selectedValue === '1');
   };
 
@@ -44,7 +66,6 @@ function StatistikPenjualan() {
 
       {showSecondFilter && (
         <div>
-          {/* Elemen filter kedua (nama-nama bulan) */}
           <div className="mt-2" style={{ marginBottom: '20px' }}>
             <select
               className="form-select"
@@ -53,78 +74,107 @@ function StatistikPenjualan() {
               onChange={handleMonthChange}
             >
               <option defaultValue>Bulan</option>
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">Mei</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
               {/* Tambahkan nama bulan lainnya jika diperlukan */}
             </select>
           </div>
 
           {selectedMonth && (
             <div>
-              <p>
-                Pendapatan untuk {selectedMonth}: Rp.{incomeByMonth[selectedMonth].toLocaleString()}
-              </p>
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <div>
+                  <p>
+                    Total Penjualan untuk {monthNames[selectedMonth - 1]}: Rp.
+                    {transactionData[0]?.total_penjualan_rp?.toLocaleString()}
+                  </p>
+
+                  <div className="table-responsive" style={{ margin: '20px 0', width: '100%' }}>
+                    <table className="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th
+                            className="text-light fw-bold"
+                            scope="col"
+                            style={{ background: '#624BFF' }}
+                          >
+                            ID
+                          </th>
+                          <th
+                            className="text-light fw-bold"
+                            scope="col"
+                            style={{ background: '#624BFF' }}
+                          >
+                            Tanggal Transaksi
+                          </th>
+                          <th
+                            className="text-light fw-bold"
+                            scope="col"
+                            style={{ background: '#624BFF' }}
+                          >
+                            Jumlah Penjualan
+                          </th>
+                          <th
+                            className="text-light fw-bold"
+                            scope="col"
+                            style={{ background: '#624BFF' }}
+                          >
+                            Total Penjualan(RP)
+                          </th>
+                          {/* <th
+                            className="text-light fw-bold"
+                            scope="col"
+                            style={{ background: '#624BFF' }}
+                          >
+                            Harga (Rp)
+                          </th> */}
+                          <th
+                            className="text-light fw-bold"
+                            scope="col"
+                            style={{ background: '#624BFF' }}
+                          >
+                            Jumlah Produk Terjual
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Array.isArray(transactionData) && transactionData.length > 0 ? (
+                          transactionData.map((transaction) => (
+                            <tr key={transaction._id}>
+                              <td>{transaction._id}</td>
+                              <td>{transaction.tanggal_transaksi}</td>
+                              <td>Rp. {transaction.jumlah_penjualan}</td>
+                              <td>RP. {transaction.total_penjualan_rp}</td>
+                              {/* <td>{transaction.harga}</td> */}
+                              <td>{transaction.jumlah_produk_terjual}</td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan="6">Tidak ada data transaksi untuk bulan ini.</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
       )}
-
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div className="card border-0 shadow-sm d-flex flex-column w-75">
-              <div className="card-body p-0 d-flex flex-column align-items-end">
-                <div className="table-responsive" style={{ margin: '20px 0', width: '100%' }}>
-                  <table className="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th className="text-light fw-bold" scope="col" style={{ background: '#624BFF' }}>
-                          ID
-                        </th>
-                        <th className="text-light fw-bold" scope="col" style={{ background: '#624BFF' }}>
-                          Tanggal Transaksi
-                        </th>
-                        <th className="text-light fw-bold" scope="col" style={{ background: '#624BFF' }}>
-                          Jumlah Penjualan
-                        </th>
-                        <th className="text-light fw-bold" scope="col" style={{ background: '#624BFF' }}>
-                          Pendapatan(RP)
-                        </th>
-                        <th className="text-light fw-bold" scope="col" style={{ background: '#624BFF' }}>
-                          Harga (Rp)
-                        </th>
-                        <th className="text-light fw-bold" scope="col" style={{ background: '#624BFF' }}>
-                          Jumlah Produk Terjual
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>1 September 2023</td>
-                        <td>10</td>
-                        <td>5000000</td>
-                        <td>250000</td>
-                        <td>30</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>2 September 2023</td>
-                        <td>15</td>
-                        <td>7500000</td>
-                        <td>200000</td>
-                        <td>40</td>
-                      </tr>
-                      {/* Tambahkan baris data lainnya jika diperlukan */}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </DashboardLayout>
   );
 }

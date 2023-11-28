@@ -2,7 +2,7 @@ import axios from "axios"
 
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
 const BASE_URL_API = "http://localhost:7600/api/v1/products";
-
+const BASE_URL = 'http://localhost:7600';
 
 export const getProductBySearch = async (value,setResults) => {
     try {
@@ -53,6 +53,18 @@ const getProductList = async () => {
         console.log(error)
     }
 }
+
+const fetchDataTransaksi = async (year, month) => {
+  const response = await axios.get(`${BASE_URL}/api/v1/penjualan/data_transaksi`, {
+    params: {
+      year,
+      month,
+    },
+  });
+  console.log('Request:', response.config);
+  console.log('Response:', response.data);
+  return response.data;
+};
 
 const register = async (userData) => {
   try {
@@ -134,6 +146,7 @@ const resetPassword = async (email, token, newPassword) => {
 
 export {
 getProductList,
+fetchDataTransaksi,
 register,
 login,
 forgotPassword,
