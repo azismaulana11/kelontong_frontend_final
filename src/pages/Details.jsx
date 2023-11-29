@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SweetAlert2 from 'react-sweetalert2'
 
-
-
 import Header from '../components/navbar/Header'
 import Footer from '../components/navbar/Footer'
 import IncrementButton from '../components/IncrementButton'
@@ -16,7 +14,7 @@ export default function Details() {
     const [swal, setSwal] = useState({})
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1)
-    // const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(0)
 
     useEffect(() => {
         const fetchDataById = async () => {
@@ -32,16 +30,25 @@ export default function Details() {
         fetchDataById()
     }, [id])
 
-    // useEffect (() => {
-    //     setTotal(results.price * quantity)
-    // }, [results.price, quantity])
+    useEffect (() => {
+        setTotal(results.price * quantity)
+    }, [results.price, quantity])
 
-    const customer_id = '655e0bdf95e2be68773e1c1a'
-    const store = "Toko Luna"
-    const total = 34000
+ 
     const addToCart = async () => {
         try {
-           const cart1 = await postCart(results._id, customer_id, store, quantity, total);
+           const cart1 = await postCart(
+            results._id, 
+            results.name, 
+            image, 
+            category, 
+            price, 
+            qty, 
+            subtotal, 
+            customer_id, 
+            customer_name, 
+            alamat, 
+            total);
             setSwal({
                 show: true,
                 title: 'Ditambahkan ke keranjang!',
