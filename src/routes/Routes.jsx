@@ -12,6 +12,12 @@ import DashboardHomepage from "../pages/dashboard/homepage/Homepage";
 import DashboardProduct from "../pages/dashboard/product/Product";
 import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
 import DashboardEditProduct from "../pages/dashboard/product/EditProduct";
+import Category from "../pages/dashboard/settings/Category"
+import AddCategories from "../pages/dashboard/settings/AddCategories";
+import Reward from "../pages/dashboard/settings/Reward"
+import AddRewards from "../pages/dashboard/settings/AddRewards"
+import EditCategories from "../pages/dashboard/settings/EditCategories";
+
 
 const AppRoutes = () => {
   return (
@@ -28,7 +34,12 @@ const AppRoutes = () => {
       <Route path="/dashboard/products" element={<DashboardProduct />} />
       <Route path="/dashboard/products/add" element={<DashboardAddProduct />} />
       <Route path="/dashboard/products/edit/:id" element={<DashboardEditProduct />} />
-    </Routes>
+      <Route path="/dashboard/settings/categories" element={<Category />} />
+      <Route path="/dashboard/settings/categories/add" element={<AddCategories />} />
+      <Route path="/dashboard/settings/categories/edit" element={<EditCategories />}/>
+      <Route path="/dashboard/settings/rewards" element={<Reward />} />
+      <Route path="/dashboard/settings/rewards/add" element={<AddRewards />}/>
+    </Routes>  
   );
 };
 
