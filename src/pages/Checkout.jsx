@@ -154,8 +154,18 @@ export default function Checkout() {
     useEffect(() => {
         if (token) {
             window.snap.pay(token, {
-                onSuccess: function (result) {
-                    localStorage.setItem("Pembayaran", JSON.stringify(result))
+                onSuccess: async function (result) {
+                    console.log("Payment success:", result);
+                    try {
+                        const response = await axios.put(`http://localhost:7600/api/v1/payment/${id}`, {
+                            status: "paid",
+                            shipping: selectedShipping,
+                            shipping_address: customer.address,
+                        });
+                        console.log(response);
+                    } catch (error) {
+                        console.log(error);
+                    }
                     setToken("")
                 },
                 onPending: function (result) {
