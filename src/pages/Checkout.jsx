@@ -145,7 +145,7 @@ export default function Checkout() {
             },
         }
         const response = await axios.post(
-            "http://localhost:5500/api/v1/payment/process-transactions",
+            "http://localhost:7600/api/v1/payment/process-transactions",
             data,
             config
         )
