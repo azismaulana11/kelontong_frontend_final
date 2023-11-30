@@ -105,24 +105,18 @@ export default function Checkout() {
 
     // Ongkos kirim
     const [selectedShipping, setSeletectShipping] = useState("")
-    const shippings = [
-        {
-            name: "Instant",
-            price: 30000
-        },
-        {
-            name: "Same Day",
-            price: 20000
-        },
-        {
-            name: "Express",
-            price: 10000
-        },
-        {
-            name: "Economy",
-            price: 0
+    const [shippings, setShippings] = useState([])
+    useEffect(() => {
+        const getShippings = async () => {
+            try {
+                const response = await axios.get("http://localhost:7600/api/v1/shipping")
+                setShippings(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
-    ]
+        getShippings()
+    }, [])
     const handleShipping = (e) => {
         const shipping = e.target.textContent.split(" - ")
         setSeletectShipping(shipping[0])
