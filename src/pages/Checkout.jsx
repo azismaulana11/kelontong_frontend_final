@@ -233,10 +233,10 @@ export default function Checkout() {
                             }}></div>
                         </h5>
                         <div id="address-content">
-                            <h5 className="fw-bolder mb-2">{user.name}</h5>
-                            <h5 className="mb-2">{user.phone}</h5>
+                            <h5 className="fw-bolder mb-2">{customer.name}</h5>
+                            <h5 className="mb-2">{customer.phone}</h5>
                             <h6 className="fw-light">
-                                {user.address}
+                                {customer.address}
                             </h6>
                         </div>
                         <div className="mb-4" style={{
