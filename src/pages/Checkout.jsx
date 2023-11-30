@@ -17,7 +17,21 @@ export default function Checkout() {
     const { id } = useParams()
 
     useEffect(() => {
-        setName(user.name)
+        const getOrderById = async () => {
+            try {
+                const response = await axios.get(`http://localhost:7600/api/v1/checkout/${id}`)
+                // setOrder_id(response.data.order._id)
+                setCustomer({
+                    name: response.data.order.customer.name,
+                    phone: response.data.order.customer.phone_number,
+                    address: response.data.order.customer.alamat
+                })
+                setProducts(response.data.order.products)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getOrderById()
     }, [])
 
     // Produk
