@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import HeadingTitle from "../../../components/dashboard/HeadingTitle"
-import DashboardLayout from "../../../layout/DashboardLayout"
 import axios from "axios"
 import SweetAlert2 from 'react-sweetalert2'
+
+import HeadingTitle from "../../../components/dashboard/HeadingTitle"
+import DashboardLayout from "../../../layout/DashboardLayout"
+
 
 export default function Reward() {
     const [rewards, setRewards] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:7600/api/v1/settings/rewards')
+        axios.get('http://localhost:7601/api/v1/settings/rewards')
             .then(response => {
                 setRewards(response.data);
             })
@@ -43,6 +45,7 @@ export default function Reward() {
                                                     <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>No</th>
                                                     <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Id</th>
                                                     <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Nama</th>
+                                                    <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}></th>
                                                 </tr>
                                             </thead>
 
@@ -51,7 +54,15 @@ export default function Reward() {
                                                     <tr key={id}>
                                                         <td>{id + 1}</td>
                                                         <td>{reward._id}</td>
-                                                        <td>{reward.rewards.name}</td>
+                                                        <td>{reward.name}</td>
+                                                        <td className="d-flex justify-center column-gap-2" role='button'>
+                                                        <Link to={`/dashboard/settings/rewards/edit/${reward._id}`}><i className="bi bi-pen"></i></Link>
+                                                        <form>
+                                                            <button type="submit" className="border-0 bg-transparent">
+                                                                <i className="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                        </td>
                                                     </tr>
                                                 ))}
                                                 {rewards.length === 0 && (

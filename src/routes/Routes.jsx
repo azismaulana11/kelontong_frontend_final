@@ -17,6 +17,7 @@ import AddCategories from "../pages/dashboard/settings/AddCategories";
 import Reward from "../pages/dashboard/settings/Reward"
 import AddRewards from "../pages/dashboard/settings/AddRewards"
 import EditCategories from "../pages/dashboard/settings/EditCategories";
+import EditRewards from "../pages/dashboard/settings/EditRewards";
 
 
 const AppRoutes = () => {
@@ -36,9 +37,10 @@ const AppRoutes = () => {
       <Route path="/dashboard/products/edit/:id" element={<DashboardEditProduct />} />
       <Route path="/dashboard/settings/categories" element={<Category />} />
       <Route path="/dashboard/settings/categories/add" element={<AddCategories />} />
-      <Route path="/dashboard/settings/categories/edit" element={<EditCategories />}/>
+      <Route path="/dashboard/settings/categories/edit/:id" element={<EditCategories />}/>
       <Route path="/dashboard/settings/rewards" element={<Reward />} />
       <Route path="/dashboard/settings/rewards/add" element={<AddRewards />}/>
+      <Route path="/dashboard/settings/rewards/edit/:id" element={<EditRewards/>}/>
     </Routes>  
   );
 };

@@ -18,7 +18,7 @@ export default function AddRewards() {
     });
 
     useEffect(() => {
-        axios.get('http://localhost:7600/api/v1/products')
+        axios.get('http://localhost:7601/api/v1/products')
             .then(response => {
                 setProducts(response.data);
             })
@@ -47,36 +47,53 @@ export default function AddRewards() {
             await Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Please fill in all fields to save the reward.'
+                text: 'Isi semua form dulu ya...'
             });
             return;
         }
 
         try {
             console.log('Trying to save reward...');
+            
+            const rewardData = {
+                name,
+                poin,
+                minPurchase,
+                description,
+                productId: selectedProduct 
+            };
 
-            await Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'The reward has been saved successfully!'
-            });
+            // Posting data to the API endpoint
+            const response = await axios.post('http://localhost:7601/api/v1/settings/rewards', rewardData);
 
-            setFormData({
-                name: '',
-                poin: '',
-                minPurchase: '',
-                description: ''
-            });
-            setSelectedProduct('');
+            if (response.status === 200) {
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Reward berhasil ditambah!'
+                });
+
+                setFormData({
+                    name: '',
+                    poin: '',
+                    minPurchase: '',
+                    description: ''
+                });
+                setSelectedProduct('');
+            } else {
+                throw new Error('Failed to save the reward.');
+            }
         } catch (error) {
             console.error('Error while saving reward:', error); 
             await Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Something went wrong! Please try again later.'
+                text: 'Ada yg salah! coba lagi nanti'
             });
         }
     };
+
+
     return (
         <>
             <DashboardLayout>

@@ -1,38 +1,38 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import HeadingTitle from "../../../components/dashboard/HeadingTitle";
-import DashboardLayout from "../../../layout/DashboardLayout";
 import axios from "axios";
 import SweetAlert2 from 'react-sweetalert2';
-import EditCategories from './EditCategories';
+
+
+import HeadingTitle from "../../../components/dashboard/HeadingTitle";
+import DashboardLayout from "../../../layout/DashboardLayout";
+
 
 export default function Category() {
     const [categories, setCategories] = useState([])
-    const [subCategories, setSubCategories] = useState(null)
+
 
     useEffect(() => {
-        axios.get('http://localhost:7600/api/v1/settings/categories')
+        axios.get('http://localhost:7601/api/v1/settings/categories')
             .then(response => {
-                setCategories(response.data.data);
-                // console.log(response.data.data)
+                setCategories(response.data);
+                // console.log(response.data)
             })
             .catch(error => {
                 console.error('Error fetching Rewards:', error);
             });
     }, []);
 
-    const handleGetSubcategories = async (id) => {
+    const handleDelete = (id) => async (e) => {
+        e.preventDefault();
         try {
-            await axios.get(`http://localhost:7600/api/v1/settings/categories/${id}`)
-                .then(response => {
-                    console.log('subcategori masuk nih', response.data.data.subcategories)
-                    setSubCategories(response.data.data.subcategories)
-                })
+            await axios.delete(`http://localhost:7601/api/v1/settings/categories/${id}`);
+            setCategories(categories.filter((category) => category._id !== id));
         } catch (error) {
-
+            console.log(error);
         }
-    }
+    };
 
     return (
         <>
@@ -50,7 +50,7 @@ export default function Category() {
                             </div>
 
                             <div className=" tabel wrapper d-flex justify-content space-between m-2">
-                                <div className='table border-2 shadow-sm w-50'>
+                                <div className='table border-2 shadow-sm w-100'>
                                     <div className='fs-4 fw-bold' style={{ color: '#637381' }}>Kategori</div>
                                     <div className="card-body p-0">
                                         <div className="table-responsive">
@@ -67,12 +67,16 @@ export default function Category() {
                                                 <tbody>
                                                     {categories.map((category, id) => (
                                                         <tr key={id} role='button'>
-                                                            <td onClick={() => (handleGetSubcategories(category._id))}>{id + 1}</td>
-                                                            <td onClick={() => (handleGetSubcategories(category._id))}>{category._id}</td>
-                                                            <td onClick={() => (handleGetSubcategories(category._id))}>{category.name}</td>
+                                                            <td>{id + 1}</td>
+                                                            <td>{category._id}</td>
+                                                            <td>{category.name}</td>
                                                             <td className="d-flex justify-center column-gap-2" role='button'>
-                                                                <Link to={'/dashboard/settings/categories/edit'}><i className="bi bi-pen"></i></Link>
-                                                                <i class="bi bi-trash"></i>
+                                                                <Link to={`/dashboard/settings/categories/edit/${category._id}`}><i className="bi bi-pen"></i></Link>
+                                                                <form onSubmit={handleDelete(category._id)}>
+                                                                    <button type="submit" className="border-0 bg-transparent">
+                                                                        <i className="bi bi-trash"></i>
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     ))}
@@ -81,37 +85,6 @@ export default function Category() {
                                                             <td colSpan="7" className="py-5 fw-bold text-center" style={{ color: "#637381" }}>Tidak ada Kategori</td>
                                                         </tr>
                                                     )}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='table border-2 shadow-sm w-50 ms-4'>
-                                    <div className='fs-4 fw-bold' style={{ color: '#637381' }}>Subkategori</div>
-                                    <div className="card-body p-0">
-                                        <div className="table-responsive">
-                                            <table className="table table-borderless">
-                                                <thead>
-                                                    <tr>
-                                                        <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>No</th>
-                                                        <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>id</th>
-                                                        <th className="text-light fw-bold" scope="col" style={{ background: "#624BFF" }}>Nama</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    {subCategories === null ?
-                                                        <tr>
-                                                            <td colSpan="7" className="py-5 fw-bold text-center" style={{ color: "#637381" }}>Tidak ada Subkategori</td>
-                                                        </tr> : subCategories.map((subCategory, id) => (
-                                                            <tr key={id}>
-                                                                <td>{id + 1}</td>
-                                                                <td>{subCategory._id}</td>
-                                                                <td>{subCategory.name}</td>
-                                                            </tr>
-                                                        ))
-                                                    }
                                                 </tbody>
                                             </table>
                                         </div>
