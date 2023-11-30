@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import arrowLeft from '../assets/img/chekout/arrow-left.svg'
 import tokoImg from '../assets/img/toko.png'
 import { useEffect, useState } from 'react'
