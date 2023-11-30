@@ -275,8 +275,8 @@ export default function Checkout() {
                                             </div>
                                         </div>
                                         <div className="d-flex align-items-center column-gap-3">
-                                            <h6 className="fw-bold mb-0 fs-4">{product.quantity}x</h6>
-                                            <h6 className="fw-bold mb-0 fs-3">Rp {(product.price * product.quantity).toLocaleString()}</h6>
+                                            <h6 className="fw-bold mb-0 fs-4">{product.qty}x</h6>
+                                            <h6 className="fw-bold mb-0 fs-3">Rp {(product.price * product.qty).toLocaleString()}</h6>
                                         </div>
                                     </div>
                                 )
