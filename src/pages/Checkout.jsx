@@ -343,8 +343,15 @@ export default function Checkout() {
                                 <button className={`
                                     btn btn-primary ${selectedShipping.length > 0 ? "" : "disabled"}
                                 `} type="button" id="pay-button" onClick={processPayment}>Pilih
-                                    Pembayaran</button>
+                                    Pembayaran
+                                </button>
                             </div>
+                            {
+                                selectedShipping === "" ?
+                                    <div className='text-danger text-end' style={{ fontSize: "10px" }}>Pilih pengiriman terlebih dahulu</div>
+                                    :
+                                    ""
+                            }
                         </div>
                     </div>
                 </section >
