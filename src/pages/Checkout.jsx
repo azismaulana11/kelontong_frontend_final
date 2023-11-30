@@ -6,12 +6,16 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Checkout() {
-    const [name, setName] = useState("")
-    const user = {
-        name: "Jhon",
-        phone: "081234567890",
-        address: "Jl. Raya Bogor KM 30"
-    }
+    const [order_id, setOrder_id] = useState("")
+    const [customer, setCustomer] = useState({
+        name: "",
+        phone: "",
+        address: ""
+    })
+    // Produk
+    const [products, setProducts] = useState([])
+    const { id } = useParams()
+
     useEffect(() => {
         setName(user.name)
     }, [])
