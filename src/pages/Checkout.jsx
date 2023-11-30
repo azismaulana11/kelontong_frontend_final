@@ -122,7 +122,7 @@ export default function Checkout() {
         setSeletectShipping(shipping[0])
         const shippingPrice = shippings.find((item) => item.name === shipping[0])
         const total = shippingPrice.price + products.reduce((total, product) => {
-            return total + product.price * product.quantity
+            return total + product.price * product.qty
         }, 0)
         setTotalAfterShipping(total)
     }
