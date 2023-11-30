@@ -97,7 +97,7 @@ export default function Checkout() {
     const [totalAfterShipping, setTotalAfterShipping] = useState(0)
     useEffect(() => {
         const totalPrice = products.reduce((total, product) => {
-            return total + product.price * product.quantity
+            return total + product.price * product.qty
         }, 0)
         setTotalNoShipping(totalPrice)
         setTotalAfterShipping(totalPrice)
