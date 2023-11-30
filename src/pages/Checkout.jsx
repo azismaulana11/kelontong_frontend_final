@@ -101,7 +101,7 @@ export default function Checkout() {
         }, 0)
         setTotalNoShipping(totalPrice)
         setTotalAfterShipping(totalPrice)
-    }, [])
+    }, [totalNoShipping, products])
 
     // Ongkos kirim
     const [selectedShipping, setSeletectShipping] = useState("")
