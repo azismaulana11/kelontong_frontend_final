@@ -20,7 +20,7 @@ export default function Checkout() {
         const getOrderById = async () => {
             try {
                 const response = await axios.get(`http://localhost:7600/api/v1/checkout/${id}`)
-                // setOrder_id(response.data.order._id)
+                setOrder_id(response.data.order._id)
                 setCustomer({
                     name: response.data.order.customer.name,
                     phone: response.data.order.customer.phone_number,
