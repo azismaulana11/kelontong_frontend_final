@@ -135,8 +135,8 @@ export default function Checkout() {
         const newOrderId = uuidv4()
         setOrder_id(newOrderId)
         const data = {
-            name: name,
-            order_id: newOrderId,
+            name: customer.name,
+            order_id: order_id,
             total: totalAfterShipping,
         }
         const config = {
