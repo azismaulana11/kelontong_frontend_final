@@ -182,9 +182,14 @@ export default function Checkout() {
                 },
             })
 
-            setName("")
+            setCustomer({
+                name: "",
+                phone: "",
+                address: ""
+            })
             setOrder_id("")
             setTotalAfterShipping("")
+            setSeletectShipping("")
         }
     }, [token])
     useEffect(() => {
@@ -196,7 +201,7 @@ export default function Checkout() {
         return () => {
             document.body.removeChild(midtransScript)
         }
-    },[])
+    }, [])
 
     return (
         <>
