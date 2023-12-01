@@ -18,16 +18,32 @@ export const getProductBySearch = async (value,setResults) => {
 }
 
 
-export const postCart = async (id, name, img, price, qty, total) => {
+export const postCart = async (
+  product_id,
+  name,
+  image,
+  category,
+  price,
+  qty,
+  subtotal,
+  customer_id,
+  customer_name,
+  alamat,
+  total) => {
   try {
     const response = await axios.post(
-      'https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/cart',
+      'http://localhost:7600/api/v1/cart',
       {
-        id: id,
+        id: product_id,
         name: name,
-        img: img,
+        image: image,
+        category: category,
         price: price,
         quantity: qty,
+        subtotal: subtotal,
+        customer_id: customer_id,
+        name: customer_name,
+        alamat: alamat,
         total: total,
       },
       {

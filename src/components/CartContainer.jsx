@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useCart } from 'react-use-cart'
+
 import { fetchCartItems } from '../services/cart'
 import IncrementButton from './IncrementButton'
 
 export const CartContainer = () => {
-    const {
-        isEmpty,
-        totalUniqueItems,
-        items,
-        totalItems,
-        cartTotal,
-        updateItemQuantity,
-        removeItem,
-        emptyCart
-    } = useCart()
-
     const [apiCartItems, setApiCartItems] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         const getApiCartItems = async () => {
@@ -26,7 +14,6 @@ export const CartContainer = () => {
                 setApiCartItems(cartItems);
             } catch (error) {
                 console.error('Error fetching cart items:', error);
-                // Handle error fetching items
             }
         };
         getApiCartItems();
@@ -36,55 +23,7 @@ export const CartContainer = () => {
         return <h1 className='text-center'>Your Cart is Empty</h1>;
     }
 
-    const combinedItems = [...items, ...(Array.isArray(apiCartItems) ? apiCartItems : [])];
-    console.log('apan nih', combinedItems)
-
-    const handleDecreaseQuantity = async (id) => {
-        const item = combinedItems.find(item => item.id === id);
-        if (item.quantity > 1) {
-            await updateItemQuantity(item.id, item.quantity - 1);
-            const updatedCartItems = await fetchCartItems();
-            setApiCartItems(updatedCartItems);
-        }
-    };
-
-    const handleIncreaseQuantity = async (id) => {
-        const item = combinedItems.find(item => item.id === id);
-        await updateItemQuantity(item.id, item.quantity + 1);
-        const updatedCartItems = await fetchCartItems();
-        setApiCartItems(updatedCartItems);
-    };
-
-    const handleSelectAll = (event) => {
-        if (event.target.checked) {
-            setSelectedItems(combinedItems.map(item => item.id));
-        } else {
-            setSelectedItems([]);
-        }
-    };
-
-    const handleSelectItem = (event) => {
-        const itemId = event.target.value;
-        if (event.target.checked) {
-            setSelectedItems([...selectedItems, itemId]);
-        } else {
-            setSelectedItems(selectedItems.filter(id => id !== itemId));
-        }
-    };
-
-    const selectedCartItems = combinedItems.filter(item => selectedItems.includes(item.id));
-    console.log('Selected Cart Items:', selectedCartItems);
-    
-    const selectedCartTotal = selectedCartItems.reduce((total, item) => {
-        console.log('Item Price:', item.price);
-        console.log('Item Quantity:', item.quantity);
-    
-        const itemTotal = item.price * item.quantity;
-        return total + itemTotal;
-    }, 0);
-    
-    console.log('Selected Cart Total:', selectedCartTotal);
-
+   
     return (
         <section className="wrapper-cart container">
             <div className="form-check px-5 py-3 d-flex border-bottom">
@@ -93,10 +32,8 @@ export const CartContainer = () => {
                     type="checkbox"
                     value=""
                     id="selectAll"
-                    onChange={handleSelectAll}
-                    checked={selectedItems.length === combinedItems.length}
                 />
-                <span className="form-text fs-6 fw-bold">Toko luna</span>
+                <span className="form-text fs-6 fw-bold">keranjang saya</span>
             </div>
 
             <div className="product-img px-4 py-5 d-flex row border-bottom">
@@ -107,12 +44,9 @@ export const CartContainer = () => {
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
-                                    value={item.id}
-                                    onChange={handleSelectItem}
-                                    checked={selectedItems.includes(item._id)}
-                                />
+                                    value="id" />
                             </div>
-                            <div className='col-md-3'>
+                            <div className='col-md-4'>
                                 <img src={item.image} alt={item.name} />
                             </div>
                             <div className="col-md-8">
@@ -141,7 +75,7 @@ export const CartContainer = () => {
             <div className="Total-Price container d-flex justify-content-end">
                 <div className="row">
                     <div className="col">
-                        <h2 className="total-price fw-bold">Total: {selectedCartTotal}</h2>
+                        <h2 className="total-price fw-bold">subtotal: {selectedCartTotal}</h2>
                     </div>
                 </div>
             </div>
