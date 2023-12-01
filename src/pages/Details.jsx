@@ -14,7 +14,9 @@ export default function Details() {
     const [swal, setSwal] = useState({})
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1)
+    const [subtotal, setSubtotal] = useState (0)
     const [total, setTotal] = useState(0)
+
 
     useEffect(() => {
         const fetchDataById = async () => {
@@ -30,20 +32,27 @@ export default function Details() {
         fetchDataById()
     }, [id])
 
-    useEffect (() => {
-        setTotal(results.price * quantity)
+    useEffect(() => {
+        setSubtotal(results.price*quantity)
     }, [results.price, quantity])
 
+    useEffect (() => {
+        setTotal(subtotal)
+    }, [subtotal])
+
+    const customer_id = '655e0bdf95e2be68773e1c1a'
+    const customer_name = 'Annisa'
+    const alamat = 'Limo, Depok'
  
     const addToCart = async () => {
         try {
            const cart1 = await postCart(
             results._id, 
             results.name, 
-            image, 
-            category, 
-            price, 
-            qty, 
+            results.image, 
+            results.category, 
+            results.price, 
+            quantity, 
             subtotal, 
             customer_id, 
             customer_name, 

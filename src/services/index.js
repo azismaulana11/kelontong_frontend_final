@@ -18,16 +18,16 @@ export const getProductBySearch = async (value, setResults) => {
 }
 
 export const postCart = async (
-  product_id,
-  name,
-  image,
-  category,
-  price,
-  qty,
-  subtotal,
-  customer_id,
-  customer_name,
-  alamat,
+  product_id, 
+  name, 
+  image, 
+  category, 
+  price, 
+  qty, 
+  subtotal, 
+  customer_id, 
+  customer_name, 
+  alamat, 
   total) => {
   try {
     const response = await axios.post(
