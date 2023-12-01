@@ -1,8 +1,8 @@
 import axios from "axios"
 
-const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
-const BASE_URL_API = "http://localhost:7600/api/v1/products";
-const BASE_URL = 'http://localhost:7600';
+const BASE_URL_API_LOGIN_REGISTER = "https://wild-rose-python-wig.cyclic.app/api/v1/auth";
+const BASE_URL_API = "https://wild-rose-python-wig.cyclic.app/api/v1/products";
+const BASE_URL = 'https://wild-rose-python-wig.cyclic.app';
 
 export const getProductBySearch = async (value, setResults) => {
   try {
@@ -31,17 +31,17 @@ export const postCart = async (
   total) => {
   try {
     const response = await axios.post(
-      'http://localhost:7600/api/v1/cart',
+      'https://wild-rose-python-wig.cyclic.app/api/v1/cart',
       {
-        id: product_id,
+        product_id: product_id,
         name: name,
         image: image,
         category: category,
         price: price,
-        quantity: qty,
+        qty: qty,
         subtotal: subtotal,
         customer_id: customer_id,
-        name: customer_name,
+        customer_name: customer_name,
         alamat: alamat,
         total: total,
       },

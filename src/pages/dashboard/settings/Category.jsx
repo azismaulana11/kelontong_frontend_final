@@ -14,7 +14,7 @@ export default function Category() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:7600/api/v1/settings/categories')
+        axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/settings/categories')
             .then(response => {
                 setCategories(response.data);
                 // console.log(response.data)
@@ -27,7 +27,7 @@ export default function Category() {
     const handleDelete = (id) => async (e) => {
         e.preventDefault();
         try {
-            await axios.delete(`http://localhost:7600/api/v1/settings/categories/${id}`);
+            await axios.delete(`https://wild-rose-python-wig.cyclic.app/api/v1/settings/categories/${id}`);
             setCategories(categories.filter((category) => category._id !== id));
         } catch (error) {
             console.log(error);

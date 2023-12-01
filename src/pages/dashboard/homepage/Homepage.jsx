@@ -49,7 +49,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/products/total-product')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/products/total-product')
                 setTotalProducts(response.data.total)
             } catch (error) {
                 console.log(error)
@@ -63,7 +63,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/order/status/paid')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/order/status/paid')
                 setTotalOrders(response.data.total)
             } catch (error) {
                 console.log(error)
@@ -77,7 +77,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/order/by-customer')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/order/by-customer')
                 setTotalCustomers(response.data.totalCustomers)
             } catch (error) {
                 console.log(error)
@@ -91,7 +91,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchCheckout = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/order/status/pending')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/order/status/pending')
                 setTotalCheckout(response.data.total)
             } catch (error) {
                 console.log(error)
@@ -113,7 +113,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchSoldProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/order/sold-products')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/order/sold-products')
                 setSoldProducts(response.data)
             } catch (error) {
                 console.log(error)
@@ -127,7 +127,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchLastTransactions = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/order/latest-orders')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/order/latest-orders')
                 setLastTransactions(response.data)
                 // console.log(response.data)
             } catch (error) {
@@ -143,7 +143,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchSalesAmount = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/order/monthly-sales')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/order/monthly-sales')
                 setSalesAmount(response.data)
             } catch (error) {
                 console.log(error)

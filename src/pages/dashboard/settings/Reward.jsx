@@ -12,7 +12,7 @@ export default function Reward() {
     const [rewards, setRewards] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:7600/api/v1/settings/rewards')
+        axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/settings/rewards')
             .then(response => {
                 setRewards(response.data);
                 console.log(response.data)

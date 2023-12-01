@@ -105,7 +105,7 @@ export const CartContainer = () => {
             };
 
             // Send a POST request to your backend to create an order
-            const response = await axios.post('http://localhost:7600/api/v1/order/create-order-from-cart', orderData);
+            const response = await axios.post('https://wild-rose-python-wig.cyclic.app/api/v1/order/create-order-from-cart', orderData);
 
             if (response.status === 200) {
                 const responseData = response.data;

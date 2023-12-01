@@ -7,11 +7,11 @@ import Footer from '../components/navbar/Footer'
 
 export default function product() {
     const [results, setResults] = useState ([])
-    
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/products')
+                const response = await axios.get('https://wild-rose-python-wig.cyclic.app/api/v1/products')
                 setResults(response.data)
             } catch (error) {
                 console.log(error)

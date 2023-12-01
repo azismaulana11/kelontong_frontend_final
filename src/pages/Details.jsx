@@ -5,8 +5,10 @@ import SweetAlert2 from 'react-sweetalert2'
 
 import Header from '../components/navbar/Header'
 import Footer from '../components/navbar/Footer'
-import IncrementButton from '../components/IncrementButton'
 import { postCart } from '../services'
+import Cookies from 'js-cookie';
+import IncrementButton2 from '../components/IncrementButton2'
+
 
 export default function Details() {
     const [results, setResults] = useState({})
@@ -21,7 +23,7 @@ export default function Details() {
     useEffect(() => {
         const fetchDataById = async () => {
             try {
-                const response = await axios.get(`http://localhost:7600/api/v1/products/${id}`)
+                const response = await axios.get(`https://wild-rose-python-wig.cyclic.app/api/v1/products/${id}`)
                 console.log(response.data)
                 const product = response.data
                 setResults(product)
@@ -40,23 +42,23 @@ export default function Details() {
         setTotal(subtotal)
     }, [subtotal])
 
-    const customer_id = '655e0bdf95e2be68773e1c1a'
-    const customer_name = 'Annisa'
-    const alamat = 'Limo, Depok'
- 
+    const customer_id = Cookies.get('user_id');
+    const customer_name = Cookies.get('name');
+    const alamat = Cookies.get('alamat');
+
     const addToCart = async () => {
         try {
            const cart1 = await postCart(
-            results._id, 
-            results.name, 
-            results.image, 
-            results.category, 
-            results.price, 
-            quantity, 
-            subtotal, 
-            customer_id, 
-            customer_name, 
-            alamat, 
+            results._id,
+            results.name,
+            results.image,
+            results.category,
+            results.price,
+            quantity,
+            subtotal,
+            customer_id,
+            customer_name,
+            alamat,
             total);
             setSwal({
                 show: true,
@@ -91,7 +93,7 @@ export default function Details() {
                         <h5 className="stock fw-normal fs-6 text">{results.stock}</h5>
                         <h2 className="toko fw-bold fs-5 text lh-lg mt-4">Pengiriman dari: </h2>
                         <h5 className="toko fw-normal fs-6 text">Toko Luna</h5>
-                        <IncrementButton value={quantity} onChange={handleQuantityChange} />
+                        <IncrementButton2 value={quantity} onChange={handleQuantityChange} />
                         <div className="button checkout d-flex mt-5 justify-content-start">
                             <button type="button" className="btn btn-primary" onClick={addToCart}>Masukkan keranjang</button>
                             <SweetAlert2 {...swal} />

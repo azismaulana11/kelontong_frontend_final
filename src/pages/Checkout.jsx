@@ -18,7 +18,7 @@ export default function Checkout() {
     useEffect(() => {
         const getOrderById = async () => {
             try {
-                const response = await axios.get(`http://localhost:7600/api/v1/checkout/${id}`)
+                const response = await axios.get(`https://wild-rose-python-wig.cyclic.app/api/v1/checkout/${id}`)
                 setOrder_id(response.data.order._id)
                 setCustomer({
                     name: response.data.order.customer.name,
@@ -50,7 +50,7 @@ export default function Checkout() {
     useEffect(() => {
         const getShippings = async () => {
             try {
-                const response = await axios.get("http://localhost:7600/api/v1/shipping")
+                const response = await axios.get("https://wild-rose-python-wig.cyclic.app/api/v1/shipping")
                 setShippings(response.data)
             } catch (error) {
                 console.log(error)
@@ -83,7 +83,7 @@ export default function Checkout() {
             },
         }
         const response = await axios.post(
-            "http://localhost:7600/api/v1/payment/process-transactions",
+            "https://wild-rose-python-wig.cyclic.app/api/v1/payment/process-transactions",
             data,
             config
         )
@@ -95,7 +95,7 @@ export default function Checkout() {
                 onSuccess: async function (result) {
                     console.log("Payment success:", result);
                     try {
-                        const response = await axios.put(`http://localhost:7600/api/v1/payment/${id}`, {
+                        const response = await axios.put(`https://wild-rose-python-wig.cyclic.app/api/v1/payment/${id}`, {
                             status: "paid",
                             shipping: selectedShipping,
                             shipping_address: customer.address,
