@@ -2,7 +2,7 @@ import axios from "axios"
 
 const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
 const BASE_URL_API = "http://localhost:7600/api/v1/products";
-
+const BASE_URL = 'http://localhost:7600';
 
 export const getProductBySearch = async (value, setResults) => {
   try {
@@ -68,6 +68,66 @@ const getProductList = async () => {
     console.log(error)
   }
 }
+
+const fetchDataTransaksi = async (year, month) => {
+  // Ambil token dari cookie
+    const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
+  const response = await axios.get(`${BASE_URL}/api/v1/penjualan/data_transaksi`, {
+    params: {
+      year,
+      month,
+    },
+    headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+  });
+  console.log('Request:', response.config);
+  console.log('Response:', response.data);
+  return response.data;
+};
+
+const fetchDataBarang = async (year, month) => {
+  try {
+    // Ambil token dari cookie
+    const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
+
+    const response = await axios.get(`${BASE_URL}/api/v1/penjualan/data_barang`, {
+      params: {
+        year,
+        month,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    console.log('Request:', response.config);
+    console.log('Response:', response.data);
+
+    const transformedData = {
+      message: response.data.message,
+      success: response.data.success,
+      statusCode: response.data.statusCode,
+      data: response.data.data.map(item => ({
+        _id: item._id,
+        tanggal_transaksi: item.tanggal_transaksi,
+        barang_terjual: item.barang_terjual.map(barang => ({
+          nama_barang: barang.nama_barang,
+          kategori: barang.kategori,
+          jumlah_terjual: barang.jumlah_terjual,
+          total_penjualan_barang: barang.total_penjualan_barang,
+        })),
+      })),
+    };
+
+    return transformedData;
+  } catch (error) {
+    console.error('Error fetching barang data:', error);
+    throw error;
+  }
+};
+
+
 
 const register = async (userData) => {
   try {
@@ -148,9 +208,11 @@ const resetPassword = async (email, token, newPassword) => {
 
 
 export {
-  getProductList,
-  register,
-  login,
-  forgotPassword,
-  resetPassword
+getProductList,
+fetchDataTransaksi,
+fetchDataBarang,
+register,
+login,
+forgotPassword,
+resetPassword
 }
