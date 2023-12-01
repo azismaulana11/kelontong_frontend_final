@@ -13,6 +13,8 @@ import DashboardHomepage from "../pages/dashboard/homepage/Homepage";
 import DashboardProduct from "../pages/dashboard/product/Product";
 import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
 import DashboardEditProduct from "../pages/dashboard/product/EditProduct";
+import Checkout from "../pages/Checkout";
+import SuccessPay from "../pages
 import Category from "../pages/dashboard/settings/Category"
 import AddCategories from "../pages/dashboard/settings/AddCategories";
 import Reward from "../pages/dashboard/settings/Reward"
@@ -34,6 +36,8 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/product" element={<Product />} />
       <Route path="/details/:id" element={<Details />}/>
+      <Route path="/checkout/:id" element={<Checkout />}/>
+      <Route path="/payment-success" element={<SuccessPay />}/>
       <Route path="/cart" element={<Cart />}/>
       <Route path="/dashboard" element={<DashboardHomepage />} />
       <Route path="/dashboard/products" element={<DashboardProduct />} />
@@ -53,4 +57,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
-
