@@ -4,30 +4,45 @@ const BASE_URL_API_LOGIN_REGISTER = "http://localhost:7600/api/v1/auth";
 const BASE_URL_API = "http://localhost:7600/api/v1/products";
 const BASE_URL = 'http://localhost:7600';
 
-export const getProductBySearch = async (value,setResults) => {
-    try {
-      const response = await axios.get('localhost:7600/api/v1/products')
-      const allProducts = response.data
-      const filterProducts =  allProducts.filter((product) => {
-        return value && product && product.name && product.name.toLowerCase().includes(value)
-      })
-      setResults(filterProducts)
-       } catch (error) {
-      console.log(error);
-    }
+export const getProductBySearch = async (value, setResults) => {
+  try {
+    const response = await axios.get(`${BASE_URL_API}`)
+    const allProducts = response.data
+    const filterProducts = allProducts.filter((product) => {
+      return value && product && product.name && product.name.toLowerCase().includes(value)
+    })
+    setResults(filterProducts)
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-
-export const postCart = async (id, name, img, price, qty, total) => {
+export const postCart = async (
+  product_id,
+  name,
+  image,
+  category,
+  price,
+  qty,
+  subtotal,
+  customer_id,
+  customer_name,
+  alamat,
+  total) => {
   try {
     const response = await axios.post(
-      'https://652760d5917d673fd76d9d06.mockapi.io/api/v1/product-list-kelontong/cart',
+      'http://localhost:7600/api/v1/cart',
       {
-        id: id,
+        id: product_id,
         name: name,
-        img: img,
+        image: image,
+        category: category,
         price: price,
         quantity: qty,
+        subtotal: subtotal,
+        customer_id: customer_id,
+        name: customer_name,
+        alamat: alamat,
         total: total,
       },
       {
@@ -45,13 +60,13 @@ export const postCart = async (id, name, img, price, qty, total) => {
 
 
 const getProductList = async () => {
-    try {
-        const url = `${BASE_URL_API}`;
-        const response = await axios.get(url);
-        return response.data;
-    } catch (error) {
-        console.log(error)
-    }
+  try {
+    const url = `${BASE_URL_API}`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const fetchDataTransaksi = async (year, month) => {
@@ -125,69 +140,69 @@ const register = async (userData) => {
 };
 
 const login = async (email, password) => {
-    try {
-        const url_login = `${BASE_URL_API_LOGIN_REGISTER}/login`;
-        const response = await axios.post(url_login, { email, password });
-        return response.data;
-    } catch (error) {
-        if (error.response) {
-            // Tangkap status code dari respon yang diterima
-            const statusCode = error.response.status;
-            console.log(`HTTP status code: ${statusCode}`);
+  try {
+    const url_login = `${BASE_URL_API_LOGIN_REGISTER}/login`;
+    const response = await axios.post(url_login, { email, password });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      // Tangkap status code dari respon yang diterima
+      const statusCode = error.response.status;
+      console.log(`HTTP status code: ${statusCode}`);
 
-            // Tangkap pesan error jika ada
-            const errorMessage = error.response.data.message;
-            console.log(`Error message: ${errorMessage}`);
+      // Tangkap pesan error jika ada
+      const errorMessage = error.response.data.message;
+      console.log(`Error message: ${errorMessage}`);
 
-            // Periksa apakah properti isVerified tersedia dalam respons error
-            const errorVerified = error.response.data.isVerified;
-            if (errorVerified !== undefined) {
-                console.log(`Is Verified: ${errorVerified}`);
-            }
+      // Periksa apakah properti isVerified tersedia dalam respons error
+      const errorVerified = error.response.data.isVerified;
+      if (errorVerified !== undefined) {
+        console.log(`Is Verified: ${errorVerified}`);
+      }
 
-        } else {
-            console.log('Error:', error.message);
-        }
-
-        // Dilemparkan kembali agar dapat dihandle di komponen yang memanggil fungsi login
-        throw error;
+    } else {
+      console.log('Error:', error.message);
     }
+
+    // Dilemparkan kembali agar dapat dihandle di komponen yang memanggil fungsi login
+    throw error;
+  }
 };
 
 const forgotPassword = async (email) => {
   try {
-      const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;
-      const response = await axios.post(url_forgot, { email });
-      return response.data;
+    const url_forgot = `${BASE_URL_API_LOGIN_REGISTER}/forgot-password`;
+    const response = await axios.post(url_forgot, { email });
+    return response.data;
   } catch (error) {
-      if (error.response) {
-          const statusCode = error.response.status;
-          console.log(`HTTP status code: ${statusCode}`);
+    if (error.response) {
+      const statusCode = error.response.status;
+      console.log(`HTTP status code: ${statusCode}`);
 
-          if (statusCode === 404) {
-              // Email tidak terdaftar
-              return { error: 'Email not found' };
-          }
-
-          // Tangkap pesan error jika ada
-          const errorMessage = error.response.data.message;
-          console.log(`Error message: ${errorMessage}`);
-      } else {
-          console.log('Error:', error.message);
+      if (statusCode === 404) {
+        // Email tidak terdaftar
+        return { error: 'Email not found' };
       }
 
-      throw error;
+      // Tangkap pesan error jika ada
+      const errorMessage = error.response.data.message;
+      console.log(`Error message: ${errorMessage}`);
+    } else {
+      console.log('Error:', error.message);
+    }
+
+    throw error;
   }
 }
 
 const resetPassword = async (email, token, newPassword) => {
   try {
-      const url_reset = `${BASE_URL_API_LOGIN_REGISTER}/reset-password`;
-      const response = await axios.post(url_reset, { email, token, newPassword });
-      return response.data;
+    const url_reset = `${BASE_URL_API_LOGIN_REGISTER}/reset-password`;
+    const response = await axios.post(url_reset, { email, token, newPassword });
+    return response.data;
   } catch (error) {
-      console.error('Error during password reset:', error);
-      throw error;
+    console.error('Error during password reset:', error);
+    throw error;
   }
 };
 

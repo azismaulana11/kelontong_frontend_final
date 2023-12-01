@@ -8,6 +8,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Register from "../pages/Register";
 import Product from "../pages/Product";
 import Details from "../pages/Details";
+import Cart from "../pages/Cart";
 import DashboardHomepage from "../pages/dashboard/homepage/Homepage";
 import DashboardProduct from "../pages/dashboard/product/Product";
 import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
@@ -27,6 +28,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/product" element={<Product />} />
       <Route path="/details/:id" element={<Details />}/>
+      <Route path="/cart" element={<Cart />}/>
       <Route path="/dashboard" element={<DashboardHomepage />} />
       <Route path="/dashboard/products" element={<DashboardProduct />} />
       <Route path="/dashboard/products/add" element={<DashboardAddProduct />} />
