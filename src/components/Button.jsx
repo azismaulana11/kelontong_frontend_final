@@ -16,6 +16,9 @@ function Button() {
     Cookies.remove('name');
     Cookies.remove('access_token');
     Cookies.remove('role');
+    Cookies.remove('alamat');
+    Cookies.remove('email');
+    Cookies.remove('user_id');
     dispatch(resetLoginData());
 
     // Tampilkan SweetAlert 2 setelah logout berhasil
