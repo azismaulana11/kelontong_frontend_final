@@ -180,7 +180,10 @@ export default function Homepage() {
                                             <span className="fw-bold" style={{ fontSize: "36px" }}>Rp. {formatRupiah(totalIncome)}</span>
                                         </div>
                                         <div>
-                                            <span className="fw-bold" style={{ fontSize: "15px", color: "green" }}>{percentIncome.toFixed(1)}% dari bulan kemarin</span>
+                                            <span className="fw-bold" style={{ fontSize: "15px", color: "green" }}>
+                                                <i class="bi bi-arrow-up text-success"></i>
+                                                {percentIncome.toFixed(1)}% dari bulan kemarin
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="chart">
