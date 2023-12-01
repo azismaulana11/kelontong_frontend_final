@@ -48,8 +48,11 @@ document.title = 'Login Member';
             const expirationDate = new Date();
           expirationDate.setTime(expirationDate.getTime() + 60 * 60 * 1000); // 1 jam dalam milidetik
           Cookies.set('role', response.data.role, { expires: expirationDate });
+          Cookies.set('user_id', response.data.id, { expires: expirationDate });
           Cookies.set('name', response.data.name, { expires: expirationDate });
           Cookies.set('access_token', response.data.access_token, { expires: expirationDate });
+          Cookies.set('alamat', response.data.alamat, { expires: expirationDate });
+          Cookies.set('email', response.data.user, { expires: expirationDate });
 
             // Redirect ke /homepage
             navigate('/');
