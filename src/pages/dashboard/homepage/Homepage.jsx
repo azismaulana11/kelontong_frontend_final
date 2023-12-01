@@ -8,6 +8,79 @@ import { useMediaQuery } from 'react-responsive'
 import ProgresBar from "../../../components/dashboard/homepage/ProgresBar";
 import TransactionItem from "../../../components/dashboard/homepage/TransactionItem";
 
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+export const options = {
+    responsive: true,
+    plugins: {
+        title: {
+            display: false,
+            text: 'Chart.js Bar Chart',
+        },
+    },
+};
+
+const labels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', "Agustus", "September", "Oktober", "November", "Desember"];
+
+const dataProfit = [1500000, 2300000, 900000, 3500000, 500000, 4200000, 1800000, 1200000, 3200000, 2400000, 5500000, 700000]
+const dataLoss = [200000, 120000, 250000, 135000, 198000, 260000, 110000, 90000, 80000, 140000, 155000, 160000]
+
+export const data = {
+    labels,
+    datasets: [
+        {
+            label: 'Pemasukan',
+            data: dataProfit,
+            backgroundColor: '#624BFF',
+        },
+        {
+            label: 'Pengeluaran',
+            data: dataLoss,
+            backgroundColor: '#E3E7FC',
+        },
+    ],
+};
+
+// Total pendapatan bulan ini
+const monthNow = new Date().getMonth()
+const formatRupiah = (angka) => {
+    let number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi)
+    if (ribuan) {
+        let separator = sisa ? '.' : ''
+        rupiah += separator + ribuan.join('.')
+    }
+    return split[1] !== undefined ? rupiah + ',' + split[1] : rupiah
+}
+const totalIncome = dataProfit[monthNow]
+
+// Total pendapatan bulan kemarin dan persentase
+const lastMonth = monthNow - 1
+const lastMonthIncome = dataProfit[lastMonth]
+const percentIncome = (totalIncome - lastMonthIncome) / lastMonthIncome * 100
+// console.log(totalIncome, lastMonthIncome, percentIncome)
+
 export default function Homepage() {
     const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 992px)' })
     const cardMenuItem = [
@@ -101,20 +174,20 @@ export default function Homepage() {
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <span className="fw-bold" style={{ fontSize: "24px" }}>Total Pendapatan</span>
-                                        <div className="d-flex column-gap-3" style={{ fontSize: "18px" }}>
-                                            <span className="d-flex align-items-center"><div><span style={{color: "#624BFF"}}>*</span> Untung</div></span>
-                                            <span className="d-flex align-items-center"><div>* Rugi</div></span>
-                                        </div>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center column-gap-3">
                                         <div>
-                                            <span className="fw-bold" style={{ fontSize: "36px" }}>Rp 1.200.000</span>
+                                            <span className="fw-bold" style={{ fontSize: "36px" }}>Rp. {formatRupiah(totalIncome)}</span>
                                         </div>
                                         <div>
-                                            <span className="fw-bold" style={{ fontSize: "15px", color: "green" }}>5% dari bulan kemarin</span>
+                                            <span className="fw-bold" style={{ fontSize: "15px", color: "green" }}>
+                                                <i class="bi bi-arrow-up text-success"></i>
+                                                {percentIncome.toFixed(1)}% dari bulan kemarin
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="chart">
+                                        <Bar options={options} data={data} />
                                     </div>
                                 </div>
                             </div>
