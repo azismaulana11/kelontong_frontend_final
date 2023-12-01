@@ -13,6 +13,12 @@ import DashboardHomepage from "../pages/dashboard/homepage/Homepage";
 import DashboardProduct from "../pages/dashboard/product/Product";
 import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
 import DashboardEditProduct from "../pages/dashboard/product/EditProduct";
+import Category from "../pages/dashboard/settings/Category"
+import AddCategories from "../pages/dashboard/settings/AddCategories";
+import Reward from "../pages/dashboard/settings/Reward"
+import AddRewards from "../pages/dashboard/settings/AddRewards"
+import EditCategories from "../pages/dashboard/settings/EditCategories";
+import EditRewards from "../pages/dashboard/settings/EditRewards";
 import StatistikPenjualan from "../pages/dashboard/penjualan/StatistikPenjualan"
 import BarangTerjual from "../pages/dashboard/penjualan/BarangTerjual";
 import StockBarang from "../pages/dashboard/penjualan/StockBarang";
@@ -33,6 +39,12 @@ const AppRoutes = () => {
       <Route path="/dashboard/products" element={<DashboardProduct />} />
       <Route path="/dashboard/products/add" element={<DashboardAddProduct />} />
       <Route path="/dashboard/products/edit/:id" element={<DashboardEditProduct />} />
+      <Route path="/dashboard/settings/categories" element={<Category />} />
+      <Route path="/dashboard/settings/categories/add" element={<AddCategories />} />
+      <Route path="/dashboard/settings/categories/edit/:id" element={<EditCategories />}/>
+      <Route path="/dashboard/settings/rewards" element={<Reward />} />
+      <Route path="/dashboard/settings/rewards/add" element={<AddRewards />}/>
+      <Route path="/dashboard/settings/rewards/edit/:id" element={<EditRewards/>}/>
       <Route path="/dashboard/sales-statistics" element={<StatistikPenjualan/>}/>
       <Route path="/dashboard/sold-items" element={<BarangTerjual/>}/>
       <Route path="/dashboard/stock-items" element={<StockBarang/>}/>

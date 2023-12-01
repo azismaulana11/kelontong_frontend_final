@@ -36,8 +36,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     </span>
                     <div className="collapse" id="collapseExample2">
                         <div className="d-flex flex-column row-gap-3" style={{ paddingLeft: "2rem" }}>
-                            <Link to={"/dashboard/setting/categories"}><span style={{ color: "#919EAB" }}>Kategori</span></Link>
-                            <Link to={"/dashboard/setting/rewarding"}><span style={{ color: "#919EAB" }}>Rewarding</span></Link>
+                            <Link to={"/dashboard/settings/categories"}><span style={{ color: "#919EAB" }}>Kategori</span></Link>
+                            <Link to={"/dashboard/settings/rewards"}><span style={{ color: "#919EAB" }}>Rewarding</span></Link>
                         </div>
                     </div>
                 </div>
