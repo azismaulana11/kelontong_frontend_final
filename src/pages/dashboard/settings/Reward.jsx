@@ -12,9 +12,10 @@ export default function Reward() {
     const [rewards, setRewards] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:7601/api/v1/settings/rewards')
+        axios.get('http://localhost:7600/api/v1/settings/rewards')
             .then(response => {
                 setRewards(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 console.error('Error fetching Rewards:', error);
@@ -54,14 +55,14 @@ export default function Reward() {
                                                     <tr key={id}>
                                                         <td>{id + 1}</td>
                                                         <td>{reward._id}</td>
-                                                        <td>{reward.name}</td>
+                                                        <td>{reward.rewards.name}</td>
                                                         <td className="d-flex justify-center column-gap-2" role='button'>
-                                                        <Link to={`/dashboard/settings/rewards/edit/${reward._id}`}><i className="bi bi-pen"></i></Link>
-                                                        <form>
-                                                            <button type="submit" className="border-0 bg-transparent">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                        </form>
+                                                            <Link to={`/dashboard/settings/rewards/edit/${reward._id}`}><i className="bi bi-pen"></i></Link>
+                                                            <form>
+                                                                <button type="submit" className="border-0 bg-transparent">
+                                                                    <i className="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 ))}

@@ -3,7 +3,6 @@ import arrowLeft from '../assets/img/chekout/arrow-left.svg'
 import tokoImg from '../assets/img/toko.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
 
 export default function Checkout() {
     const [order_id, setOrder_id] = useState("")

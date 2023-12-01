@@ -63,7 +63,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/orders/status/paid')
+                const response = await axios.get('http://localhost:7600/api/v1/order/status/paid')
                 setTotalOrders(response.data.total)
             } catch (error) {
                 console.log(error)
@@ -77,7 +77,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/orders/by-customer')
+                const response = await axios.get('http://localhost:7600/api/v1/order/by-customer')
                 setTotalCustomers(response.data.totalCustomers)
             } catch (error) {
                 console.log(error)
@@ -91,7 +91,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchCheckout = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/orders/status/pending')
+                const response = await axios.get('http://localhost:7600/api/v1/order/status/pending')
                 setTotalCheckout(response.data.total)
             } catch (error) {
                 console.log(error)
@@ -113,7 +113,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchSoldProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/orders/sold-products')
+                const response = await axios.get('http://localhost:7600/api/v1/order/sold-products')
                 setSoldProducts(response.data)
             } catch (error) {
                 console.log(error)
@@ -127,7 +127,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchLastTransactions = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/orders/latest-orders')
+                const response = await axios.get('http://localhost:7600/api/v1/order/latest-orders')
                 setLastTransactions(response.data)
                 // console.log(response.data)
             } catch (error) {
@@ -143,7 +143,7 @@ export default function Homepage() {
     useEffect(() => {
         const fetchSalesAmount = async () => {
             try {
-                const response = await axios.get('http://localhost:7600/api/v1/orders/monthly-sales')
+                const response = await axios.get('http://localhost:7600/api/v1/order/monthly-sales')
                 setSalesAmount(response.data)
             } catch (error) {
                 console.log(error)
@@ -158,7 +158,7 @@ export default function Homepage() {
         labels,
         datasets: [
             {
-                label: 'Pemasukan',
+                label: 'Penjualan',
                 data: salesAmount,
                 backgroundColor: '#624BFF',
             },
@@ -196,7 +196,7 @@ export default function Homepage() {
                             <div className="card border-0 shadow-sm w-100">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <span className="fw-bold" style={{ fontSize: "24px" }}>Total Pendapatan</span>
+                                        <span className="fw-bold" style={{ fontSize: "24px" }}>Total Penjualan</span>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center column-gap-3">
                                         <div>

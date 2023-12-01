@@ -14,7 +14,7 @@ import DashboardProduct from "../pages/dashboard/product/Product";
 import DashboardAddProduct from "../pages/dashboard/product/AddProduct";
 import DashboardEditProduct from "../pages/dashboard/product/EditProduct";
 import Checkout from "../pages/Checkout";
-import SuccessPay from "../pages
+import SuccessPay from "../pages/SuccessPay";
 import Category from "../pages/dashboard/settings/Category"
 import AddCategories from "../pages/dashboard/settings/AddCategories";
 import Reward from "../pages/dashboard/settings/Reward"

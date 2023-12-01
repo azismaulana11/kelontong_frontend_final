@@ -18,16 +18,16 @@ export const getProductBySearch = async (value, setResults) => {
 }
 
 export const postCart = async (
-  product_id, 
-  name, 
-  image, 
-  category, 
-  price, 
-  qty, 
-  subtotal, 
-  customer_id, 
-  customer_name, 
-  alamat, 
+  product_id,
+  name,
+  image,
+  category,
+  price,
+  qty,
+  subtotal,
+  customer_id,
+  customer_name,
+  alamat,
   total) => {
   try {
     const response = await axios.post(
@@ -71,15 +71,12 @@ const getProductList = async () => {
 
 const fetchDataTransaksi = async (year, month) => {
   // Ambil token dari cookie
-    const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
+    // const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
   const response = await axios.get(`${BASE_URL}/api/v1/penjualan/data_transaksi`, {
     params: {
       year,
       month,
     },
-    headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
   });
   console.log('Request:', response.config);
   console.log('Response:', response.data);
@@ -89,15 +86,12 @@ const fetchDataTransaksi = async (year, month) => {
 const fetchDataBarang = async (year, month) => {
   try {
     // Ambil token dari cookie
-    const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
+    // const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
 
     const response = await axios.get(`${BASE_URL}/api/v1/penjualan/data_barang`, {
       params: {
         year,
         month,
-      },
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
       },
     });
 

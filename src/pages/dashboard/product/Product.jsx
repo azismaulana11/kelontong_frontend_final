@@ -8,14 +8,14 @@ import { withSwal } from 'react-sweetalert2';
 import HeadingTitle from "../../../components/dashboard/HeadingTitle";
 
 export default withSwal((props, ref) => {
-    const BASE_SERVER = "http://localhost:5500";
+    const BASE_SERVER = "http://localhost:7600";
     const [products, setProducts] = useState([]);
     const { swal, ...rest } = props;
 
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const response = await axios.get("http://localhost:5500/api/v1/products");
+                const response = await axios.get("http://localhost:7600/api/v1/products");
                 setProducts(response.data);
             } catch (error) {
                 console.log(error);
@@ -38,7 +38,7 @@ export default withSwal((props, ref) => {
                 cancelButtonText: 'Tidak'
             })
             if (willDelete.isConfirmed) {
-                await axios.delete(`http://localhost:5500/api/v1/products/${id}`);
+                await axios.delete(`http://localhost:7600/api/v1/products/${id}`);
                 await swal.fire({
                     title: 'Sukses',
                     text: 'Data berhasil dihapus',
@@ -95,8 +95,8 @@ export default withSwal((props, ref) => {
                                                     <td>
                                                         {product.image && (
                                                             <img
-                                                                src={`${BASE_SERVER}/upload/${product.image}`}
-                                                                alt={product.image}
+                                                                src={product.image}
+                                                                alt={product.name}
                                                                 style={{ maxWidth: "60px", maxHeight: "60px" }}
                                                             />
                                                         )}

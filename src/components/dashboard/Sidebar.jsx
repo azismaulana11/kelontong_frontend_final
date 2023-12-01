@@ -27,7 +27,6 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                         <div className="d-flex flex-column row-gap-3" style={{ paddingLeft: "2rem" }}>
                             <Link to={"/dashboard/sales-statistics"}><span style={{ color: "#919EAB" }}>Statistik Penjualan</span></Link>
                             <Link to={"/dashboard/sold-items"}><span style={{ color: "#919EAB" }}>Barang terjual</span></Link>
-                            <Link to={"/dashboard/stock-items"}><span style={{ color: "#919EAB" }}>Stok Barang</span></Link>
                         </div>
                     </div>
                     <span role="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" className="sidebar__link">
