@@ -1,8 +1,8 @@
 import axios from "axios"
 
-const BASE_URL_API_LOGIN_REGISTER = "https://wild-rose-python-wig.cyclic.app/api/v1/auth";
-const BASE_URL_API = "https://wild-rose-python-wig.cyclic.app/api/v1/products";
-const BASE_URL = 'https://wild-rose-python-wig.cyclic.app';
+const BASE_URL_API_LOGIN_REGISTER = "https://backend-r4voywk7j-azismaulana1883s-projects.vercel.app/api/v1/auth";
+const BASE_URL_API = "https://backend-r4voywk7j-azismaulana1883s-projects.vercel.app/api/v1/products";
+const BASE_URL = 'https://backend-r4voywk7j-azismaulana1883s-projects.vercel.app';
 
 export const getProductBySearch = async (value, setResults) => {
   try {
@@ -31,7 +31,7 @@ export const postCart = async (
   total) => {
   try {
     const response = await axios.post(
-      'https://wild-rose-python-wig.cyclic.app/api/v1/cart',
+      'https://backend-r4voywk7j-azismaulana1883s-projects.vercel.app/api/v1/cart',
       {
         product_id: product_id,
         name: name,
